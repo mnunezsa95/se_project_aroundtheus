@@ -13,7 +13,7 @@
   margin: 0;
 }
 
-.card {
+.card__list-item {
   display: flex;
   flex-direction: column;
 }
