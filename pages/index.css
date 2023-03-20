@@ -1,0 +1,35 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts.css);
+@import url(/blocks/page.css);
+@import url(/blocks/header.css);
+@import url(/blocks/profile.css);
+@import url(/blocks/cards.css);
+@import url(/blocks/footer.css);
+
+@media screen and (max-width: 480px) {
+  .profile {
+    flex-direction: column;
+  }
+
+  .profile__info {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .profile__title {
+    justify-content: center;
+  }
+
+  .profile__description {
+    width: center;
+    text-align: center;
+  }
+
+  .profile__add-button {
+    margin: 0;
+    width: 100%;
+  }
+}
