@@ -23,6 +23,7 @@
 }
 
 .profile__title {
+  font-family: "Inter", Arial, Sans-Serif;
   font-size: 42px;
   line-height: 1.2;
   font-weight: 500;
@@ -31,6 +32,7 @@
 }
 
 .profile__description {
+  font-family: "Inter", Arial, Sans-Serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.2;
@@ -69,12 +71,16 @@
 }
 
 @media screen and (max-width: 480px) {
+  .profile {
+    flex-direction: column;
+  }
+
   .profile__info {
     display: flex;
-    justify-content: center;
-    align-content: center;
     flex-wrap: wrap;
     width: 100%;
+    justify-content: center;
+    text-align: center;
     padding-top: 30px;
   }
 
@@ -83,13 +89,21 @@
   }
 
   .profile__title {
+    justify-content: center;
     font-size: 22px;
   }
 
   .profile__description {
+    width: center;
+    text-align: center;
     width: 100%;
     padding-top: 14px;
     padding-bottom: 53px;
+  }
+
+  .profile__add-button {
+    margin: 0;
+    width: 100%;
   }
 
   .profile__edit-button {

@@ -1,6 +1,5 @@
 .card {
   margin-top: 45px;
-  /* no styles for now */
 }
 
 .card__list {
@@ -16,6 +15,7 @@
 .card__list-item {
   display: flex;
   flex-direction: column;
+  margin: 0;
 }
 
 .card__image {
@@ -32,12 +32,13 @@
   align-items: center;
   justify-content: space-between;
   border-radius: 0 0 10px 10px;
-  font-size: 18px;
-  font-weight: 900;
-  line-height: 1.2;
 }
 
 .card__title {
+  font-family: "Inter", Arial, Sans-Serif;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 1.2;
   margin: 0;
   text-overflow: ellipsis;
   white-space: nowrap;
