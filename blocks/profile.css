@@ -23,7 +23,7 @@
 }
 
 .profile__title {
-  font-family: "Inter", Arial, Sans-Serif;
+  font-family: "Inter", Arial, sans-Serif;
   font-size: 42px;
   line-height: 1.2;
   font-weight: 500;
@@ -32,7 +32,7 @@
 }
 
 .profile__description {
-  font-family: "Inter", Arial, Sans-Serif;
+  font-family: "Inter", Arial, sans-Serif;
   font-size: 18px;
   font-weight: 400;
   line-height: 1.2;
@@ -94,7 +94,6 @@
   }
 
   .profile__description {
-    width: center;
     text-align: center;
     width: 100%;
     padding-top: 14px;
