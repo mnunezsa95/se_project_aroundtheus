@@ -71,7 +71,25 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 780px) {
+  .profile__title {
+    font-size: 35px;
+  }
+  .profile__edit-button {
+    margin-right: 10px;
+  }
+}
+
+@media screen and (max-width: 620px) {
+  .profile__title {
+    font-size: 35px;
+  }
+  .profile__edit-button {
+    margin-right: 10px;
+  }
+}
+
+@media screen and (max-width: 500px) {
   .profile {
     flex-direction: column;
   }
