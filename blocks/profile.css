@@ -48,6 +48,7 @@
   align-self: center;
   border: 2px solid white;
   border-radius: 2px;
+  margin: 0 0 0 18px;
 }
 
 .profile__edit-button:hover {
