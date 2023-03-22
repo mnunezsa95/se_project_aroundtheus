@@ -36,7 +36,7 @@
 
 .card__title {
   font-family: "Inter", Arial, sans-serif;
-  font-size: 24px;
+  font-size: 23px;
   font-weight: 900;
   line-height: 1.2;
   margin: 0;
@@ -53,6 +53,6 @@
 }
 
 .card__like-button:hover {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: pointer;
 }
