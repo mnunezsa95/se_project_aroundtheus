@@ -8,6 +8,9 @@
 * Images  
 * Plans for Improvement
 
+### Project URL
+Here is the project URL live on [GitHub pages[(https://mnunezsa95.github.io/se_project_aroundtheus/}
+
 ### Description of Project
 
 The purpose of this project is to create a responsive website that functions properly on mobile devices, tablets and a standard desktop 
