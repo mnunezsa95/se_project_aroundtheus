@@ -39,7 +39,6 @@
           />
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
-
             <button
               class="profile__edit-button"
               type="button"
@@ -54,105 +53,13 @@
           ></button>
         </section>
         <section class="card page__section">
-          <ul class="card__list">
-            <li class="card__list-item">
-              <img
-                class="card__image"
-                src="./images/yosemite.jpg"
-                alt="Yosemite Valley"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Yosemite Valley</h2>
-                <button
-                  class="card__like-button"
-                  type="button"
-                  aria-label="like picture button"
-                ></button>
-              </div>
-            </li>
-            <li class="card__list-item">
-              <img
-                class="card__image"
-                src="./images/lake-louise.jpg"
-                alt="Lake Louise"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Lake Louise</h2>
-                <button
-                  class="card__like-button"
-                  type="button"
-                  aria-label="like picture button"
-                ></button>
-              </div>
-            </li>
-            <li class="card__list-item">
-              <img
-                class="card__image"
-                src="./images/bald-mountains.jpg"
-                alt="Bald Mountains"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Bald Mountains</h2>
-                <button
-                  class="card__like-button"
-                  type="button"
-                  aria-label="like picture button"
-                ></button>
-              </div>
-            </li>
-            <li class="card__list-item">
-              <img
-                class="card__image"
-                src="./images/latemar.jpg"
-                alt="Latemar"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Latemar</h2>
-                <button
-                  class="card__like-button"
-                  type="button"
-                  aria-label="like picture button"
-                ></button>
-              </div>
-            </li>
-            <li class="card__list-item">
-              <img
-                class="card__image"
-                src="./images/vanoise.jpg"
-                alt="Vanoise National Park"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Vanoise National Park</h2>
-                <button
-                  class="card__like-button"
-                  type="button"
-                  aria-label="like picture button"
-                ></button>
-              </div>
-            </li>
-            <li class="card__list-item">
-              <img
-                class="card__image"
-                src="./images/lago.jpg"
-                alt="Lago di Braies"
-              />
-              <div class="card__description">
-                <h2 class="card__title">Lago di Braies</h2>
-                <button
-                  class="card__like-button"
-                  type="button"
-                  aria-label="like picture button"
-                ></button>
-              </div>
-            </li>
-          </ul>
+          <ul class="card__list"></ul>
         </section>
       </main>
       <footer class="footer page__section">
         <p class="footer__copyright">© 2023 Around the U.S.</p>
       </footer>
     </div>
-
     <div class="modal modal_profile-button">
       <div class="modal__container">
         <button class="modal__close-button"></button>
@@ -160,22 +67,38 @@
         <form class="modal__form">
           <input
             class="modal__input"
+            id="profile-title-input"
             type="text"
             name="title"
             required
-            placeholder="Jacques Cousteau"
+            placeholder="Title"
           />
           <input
             class="modal__input"
+            id="profile-description-input"
             type="text"
             name="description"
             required
-            placeholder="Explorer"
+            placeholder="Description"
           />
           <button class="modal__save-button">Save</button>
         </form>
       </div>
     </div>
+
+    <template id="card-template">
+      <li class="card__list-item">
+        <img class="card__image" src="" alt="" />
+        <div class="card__description">
+          <h2 class="card__title"></h2>
+          <button
+            class="card__like-button"
+            type="button"
+            aria-label="like picture button"
+          ></button>
+        </div>
+      </li>
+    </template>
 
     <script src="./scripts/index.js"></script>
   </body>
