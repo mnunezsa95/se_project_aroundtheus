@@ -27,7 +27,7 @@
         <img
           src="./images/logo_white.svg"
           alt="Around the United States Logo"
-          class="logo"
+          class="header__logo"
         />
       </header>
       <main class="content">
@@ -60,10 +60,11 @@
         <p class="footer__copyright">© 2023 Around the U.S.</p>
       </footer>
     </div>
-    <div class="modal modal_profile-button">
+
+    <div class="modal" name="profile-login-form">
       <div class="modal__container">
-        <button class="modal__close-button"></button>
-        <p class="modal__heading">Edit Profile</p>
+        <button class="modal__close-button" type="button"></button>
+        <h4 class="modal__heading">Edit Profile</h4>
         <form class="modal__form">
           <input
             class="modal__input"
@@ -81,7 +82,7 @@
             required
             placeholder="Description"
           />
-          <button class="modal__save-button">Save</button>
+          <button class="modal__save-button" type="submit">Save</button>
         </form>
       </div>
     </div>

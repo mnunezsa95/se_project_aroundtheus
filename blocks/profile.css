@@ -20,7 +20,7 @@
     "title button"
     "description description";
   grid-template-columns: minmax(auto, 373px) auto;
-  grid-gap: 9px, 17px;
+  grid-gap: 9px 17px;
 }
 
 .profile__title {
@@ -55,6 +55,7 @@
   align-self: center;
   border: 1px solid white;
   margin: 0 0 0 18px;
+  cursor: pointer;
 }
 
 .profile__edit-button:hover {

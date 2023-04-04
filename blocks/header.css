@@ -5,12 +5,12 @@
   margin: 0 auto;
 }
 
-.logo {
+.header__logo {
   padding: 45px 0 41px 0;
 }
 
 @media screen and (max-width: 500px) {
-  .logo {
+  .header__logo {
     width: 126px;
     height: 24px;
     margin: 0;
