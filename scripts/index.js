@@ -25,9 +25,12 @@ let initialCards = [
   },
 ];
 
+// selecting Profile Modal
 const profileEditButton = document.querySelector(".profile__edit-button");
-const profileEditModal = document.querySelector(".modal");
-const profileCloseButton = document.querySelector(".modal__close-button");
+const profileEditModal = document.querySelector("#edit-modal");
+const profileCloseButton = document.querySelector(
+  "#modal__close-profile-button"
+);
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#profile-title-input");
@@ -35,10 +38,19 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 const profileEditForm = profileEditModal.querySelector(".modal__form");
+
+// card template querySelectors
 const cardTemplate = document
   .querySelector("#card-template")
   .content.querySelector(".card__list-item");
 const cardListAdd = document.querySelector(".card__list");
+
+// selecting Add Card Modal
+const addNewCardButton = document.querySelector(".profile__add-button");
+const cardModal = document.querySelector("#add-modal");
+const closeCardModalButton = document.querySelector(
+  "#modal__close-card-button"
+);
 
 // open modal function
 function modalProfileOpen() {
@@ -50,6 +62,16 @@ function modalProfileOpen() {
 // close modal function
 function modalProfileClose() {
   profileEditModal.classList.remove("modal_opened");
+}
+
+// open add card function
+function addCardModalOpen() {
+  cardModal.classList.add("modal_opened");
+}
+
+// close add card function
+function addCardModalClose() {
+  cardModal.classList.remove("modal_opened");
 }
 
 // submit modal function
@@ -73,13 +95,17 @@ function getCardElement(data) {
   return cardElement;
 }
 
-for (let i = 0; i < initialCards.length; i++) {
-  const data = initialCards[i];
+initialCards.forEach(function (card) {
+  const data = card;
   const cardElement = getCardElement(data);
   cardListAdd.append(cardElement);
-}
+});
 
-// event listeners
+// event listeners for profile title & description
 profileEditButton.addEventListener("click", modalProfileOpen);
 profileCloseButton.addEventListener("click", modalProfileClose);
 profileEditForm.addEventListener("submit", profileFormSubmit);
+
+// event listeners for adding card
+addNewCardButton.addEventListener("click", addCardModalOpen);
+closeCardModalButton.addEventListener("click", addCardModalClose);
