@@ -149,6 +149,7 @@ function getCardElement(data) {
     previewImageCaption.textContent = data.name;
   }
   imageElement.addEventListener("click", previewImageModal);
+  // When I move the function & event listener for "cardPreviewCloseButton" to the global scope, it makes the function & event listener not work
   const cardPreviewCloseButton = document.querySelector(
     ".modal__close-button-image"
   );
