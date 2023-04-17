@@ -117,6 +117,8 @@
   color: white;
   font-weight: 400;
   font-size: 12px;
+  position: absolute;
+  top: calc(100% + 10px);
 }
 
 .modal__preview-image {
