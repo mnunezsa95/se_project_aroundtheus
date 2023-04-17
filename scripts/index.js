@@ -100,6 +100,7 @@ function submitCardForm(evt) {
   const cardElement = getCardElement({ name, link });
   cardList.prepend(cardElement);
   closeCardModal();
+  addCardForm.reset();
 }
 
 initialCards.forEach(function (card) {
@@ -144,11 +145,10 @@ function getCardElement(data) {
     );
     previewImageElement.src = data.link;
     previewImageElement.alt = data.name;
-    imageModal.classList.toggle("modal_opened");
+    openModal(imageModal);
     previewImageCaption.textContent = data.name;
   }
   imageElement.addEventListener("click", previewImageModal);
-
   const cardPreviewCloseButton = document.querySelector(
     ".modal__close-button-image"
   );
@@ -156,7 +156,6 @@ function getCardElement(data) {
     closeModal(imageModal);
   }
   cardPreviewCloseButton.addEventListener("click", closeCardPreview);
-
   cardTitle.textContent = data.name;
   cardImage.src = data.link;
   cardImage.alt = data.name;
