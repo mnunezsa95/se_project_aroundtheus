@@ -74,6 +74,8 @@
   left: calc(100% + 5px);
   cursor: pointer;
   padding: 0;
+  opacity: 1;
+  transition: opacity 0.3s linear;
 }
 
 .modal__close-button:hover {
@@ -95,6 +97,8 @@
   cursor: pointer;
   border: 0;
   border-radius: 2px;
+  opacity: 1;
+  transition: opacity 0.3s linear;
 }
 
 .modal__save-button:hover {
