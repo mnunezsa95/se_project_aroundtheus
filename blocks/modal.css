@@ -105,6 +105,11 @@
   opacity: 0.8;
 }
 
+.modal__save-button-inactive {
+  background-color: #e5e5e5;
+  color: rgba(0, 0, 0, 0.2);
+}
+
 .modal__container-image {
   margin: 0 auto;
   padding: 0;
@@ -134,6 +139,19 @@
 .modal__close-button-image {
   bottom: calc(100% + 5px);
   left: calc(100% + 5px);
+}
+
+.modal__input_type_error {
+  border-top: 1px solid red;
+}
+
+.modal__input-error_active {
+  font-size: 12px;
+  font-family: "Inter", Arial, sans-serif;
+  line-height: 1.25;
+  color: #ff0000;
+  padding-top: 5px;
+  display: block;
 }
 
 @media screen and (max-width: 780px) {

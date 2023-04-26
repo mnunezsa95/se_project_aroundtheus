@@ -70,23 +70,36 @@
           type="button"
         ></button>
         <h3 class="modal__heading">Edit Profile</h3>
-        <form class="modal__form" name="profile-login-form">
+        <form
+          class="modal__form"
+          name="profile-login-form"
+          id="profile-edit-form"
+          novalidate
+        >
           <input
             class="modal__input"
             id="profile-title-input"
             type="text"
             name="title"
+            minlength="2"
+            maxlength="40"
             required
             placeholder="Title"
           />
+          <span class="modal__input-error profile-title-input-error"></span>
           <input
             class="modal__input"
             id="profile-description-input"
             type="text"
             name="description"
+            minlength="2"
+            maxlength="200"
             required
             placeholder="Description"
           />
+          <span
+            class="modal__input-error profile-description-input-error"
+          ></span>
           <button class="modal__save-button" type="submit">Save</button>
         </form>
       </div>
@@ -109,15 +122,19 @@
             name="title"
             required
             placeholder="Title"
+            minlength="1"
+            maxlength="30"
           />
+          <span class="modal__input-error add-card-title-input-error"></span>
           <input
             class="modal__input modal__input_type_url"
             id="add-card-url-input"
-            type="text"
+            type="url"
             name="url"
             required
             placeholder="Image URL"
           />
+          <span class="modal__input-error add-card-url-input-error"></span>
           <button class="modal__save-button" type="submit">Create</button>
         </form>
       </div>
