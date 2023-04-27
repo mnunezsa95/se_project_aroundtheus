@@ -164,6 +164,7 @@ function closeCardPreview() {
 }
 cardPreviewCloseButton.addEventListener("click", closeCardPreview);
 
+// Escape key event listener
 document.addEventListener("keydown", (evt) => {
   if (evt.key === "Escape") {
     closeCardPreview();
@@ -171,6 +172,16 @@ document.addEventListener("keydown", (evt) => {
     closeCardModal();
   }
 });
+
+// Overlay click to exit modals
+function closeViaOverlay(evt) {
+  if (!evt.target.closest(".modal__container")) {
+    closeCardPreview();
+    closeProfileModal();
+    closeCardModal();
+  }
+}
+document.addEventListener("mousedown", closeViaOverlay);
 
 // Form Validation
 const formElement = document.querySelector(".modal__form");
