@@ -164,9 +164,16 @@ function closeCardPreview() {
 }
 cardPreviewCloseButton.addEventListener("click", closeCardPreview);
 
+document.addEventListener("keydown", (evt) => {
+  if (evt.key === "Escape") {
+    closeCardPreview();
+    closeProfileModal();
+    closeCardModal();
+  }
+});
+
+// Form Validation
 const formElement = document.querySelector(".modal__form");
-const formInput = formElement.querySelector(".modal__input");
-const formError = formElement.querySelector(`.${formInput.id}-error`);
 
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -210,8 +217,10 @@ const hasInvalidInput = (inputList) => {
 
 const toggleButtonState = (inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
+    buttonElement.disabled = true;
     buttonElement.classList.add("modal__save-button-inactive");
   } else {
+    buttonElement.disabled = false;
     buttonElement.classList.remove("modal__save-button-inactive");
   }
 };
