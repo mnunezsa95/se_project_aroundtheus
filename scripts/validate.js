@@ -1,5 +1,4 @@
 // Form Validation
-const formElement = document.querySelector(".modal__form");
 
 const showInputError = (formElement, inputElement, errorMessage) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);

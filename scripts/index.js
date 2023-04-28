@@ -57,14 +57,19 @@ const closeCardModalButton = document.querySelector(
 const addCardForm = cardModal.querySelector(".modal__form");
 const cardTitleInput = addCardForm.querySelector(".modal__input_type_title");
 const cardUrlInput = addCardForm.querySelector(".modal__input_type_url");
+const modalSaveButton = addCardForm.querySelector(".modal__save-button");
 
 // universal open/close modal functions
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", closeByEscape);
+  document.addEventListener("mousedown", closeViaOverlay);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closeByEscape);
+  document.removeEventListener("mousedown", closeViaOverlay);
 }
 
 // modal functions
@@ -101,11 +106,11 @@ function submitCardForm(evt) {
   cardList.prepend(cardElement);
   closeCardModal();
   addCardForm.reset();
+  modalSaveButton.classList.add("modal__save-button-inactive");
 }
 
 initialCards.forEach(function (card) {
-  const data = card;
-  const cardElement = getCardElement(data);
+  const cardElement = getCardElement(card);
   cardList.append(cardElement);
 });
 
@@ -137,7 +142,6 @@ function getCardElement(data) {
   }
   cardDeleteButton.addEventListener("click", deleteCard);
 
-  const imageElement = cardElement.querySelector(".card__image");
   function previewImageModal() {
     const previewImageCaption = imageModal.querySelector(
       ".modal__preview-caption"
@@ -147,7 +151,7 @@ function getCardElement(data) {
     openModal(imageModal);
     previewImageCaption.textContent = data.name;
   }
-  imageElement.addEventListener("click", previewImageModal);
+  cardImage.addEventListener("click", previewImageModal);
   cardTitle.textContent = data.name;
   cardImage.src = data.link;
   cardImage.alt = data.name;
@@ -164,21 +168,18 @@ function closeCardPreview() {
 }
 cardPreviewCloseButton.addEventListener("click", closeCardPreview);
 
-// Escape key event listener
-document.addEventListener("keydown", (evt) => {
+// Esapce button to exit modal
+function closeByEscape(evt) {
   if (evt.key === "Escape") {
-    closeCardPreview();
-    closeProfileModal();
-    closeCardModal();
+    const modalOpened = document.querySelector(".modal_opened");
+    closeModal(modalOpened);
   }
-});
+}
 
 // Overlay click to exit modals
 function closeViaOverlay(evt) {
   if (!evt.target.closest(".modal__container")) {
-    closeCardPreview();
-    closeProfileModal();
-    closeCardModal();
+    const modalOpened = document.querySelector(".modal_opened");
+    closeModal(modalOpened);
   }
 }
-document.addEventListener("mousedown", closeViaOverlay);
