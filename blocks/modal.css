@@ -142,7 +142,7 @@
 }
 
 .modal__input_type_error {
-  border-top: 1px solid red;
+  border-bottom: 1px solid red;
 }
 
 .modal__input-error_active {

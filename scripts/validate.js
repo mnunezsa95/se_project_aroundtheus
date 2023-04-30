@@ -2,21 +2,21 @@
 
 function showInputError(formElement, inputElement, options) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  errorElement.classList.add(options.inputErrorClass);
+  inputElement.classList.add(options.inputErrorClass);
   errorElement.textContent = inputElement.validationMessage;
   errorElement.classList.add(options.errorClass);
 }
 
 function hideInputError(formElement, inputElement, options) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  errorElement.classList.remove(options.inputErrorClass);
+  inputElement.classList.remove(options.inputErrorClass);
   errorElement.classList.remove(options.errorClass);
   errorElement.textContent = "";
 }
 
 function isValid(formElement, inputElement, options) {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, options);
   } else {
     hideInputError(formElement, inputElement, options);
   }
