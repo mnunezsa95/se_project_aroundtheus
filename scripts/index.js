@@ -107,6 +107,7 @@ function submitCardForm(evt) {
   closeCardModal();
   addCardForm.reset();
   modalSaveButton.classList.add("modal__save-button-inactive");
+  modalSaveButton.disabled = true;
 }
 
 initialCards.forEach(function (card) {
