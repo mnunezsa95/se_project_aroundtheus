@@ -1,5 +1,6 @@
 // Import Card class
 import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 import { openModal, closeModal } from "../utils/utils.js";
 
 // ! Keep This Code
@@ -55,6 +56,21 @@ const cardUrlInput = addCardForm.querySelector(".modal__input_type_url");
 const modalSaveButton = addCardForm.querySelector(".modal__save-button");
 const imageModal = document.querySelector("#preview-modal");
 const cardPreviewCloseButton = document.querySelector(".modal__close-button-image");
+
+// ! Keep This Code
+// ------Form Validation------ //
+const config = {
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__save-button",
+  inactiveButtonClass: "modal__save-button-inactive",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__input-error_active",
+};
+
+const editProfileFormValidator = new FormValidator(config, profileEditModal);
+const addCardFormValidator = new FormValidator(config, cardModal);
+// editProfileFormValidator.enableValidation();
+// addCardFormValidator.enableValidation();
 
 // modal functions
 function openProfileModal() {

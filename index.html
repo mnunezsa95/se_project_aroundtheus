@@ -3,14 +3,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="description"
-      content="Website that shows amazing and beautiful scenic popular locations in the United States"
-    />
-    <meta
-      name="keywords"
-      content="Yosemite Valley, Lake Louise, Bald Mountains, Latemar, Vanoise National Park, Lago di Braies"
-    />
+    <meta name="description" content="Website that shows amazing and beautiful scenic popular locations in the United States" />
+    <meta name="keywords" content="Yosemite Valley, Lake Louise, Bald Mountains, Latemar, Vanoise National Park, Lago di Braies" />
     <meta name="author" content="Marlon Nunez" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
@@ -48,16 +42,7 @@
         <button class="modal__close-button" id="modal__close-profile-button" type="button"></button>
         <h3 class="modal__heading">Edit Profile</h3>
         <form class="modal__form" name="profile-login-form" id="profile-edit-form" novalidate>
-          <input
-            class="modal__input"
-            id="profile-title-input"
-            type="text"
-            name="title"
-            minlength="2"
-            maxlength="40"
-            required
-            placeholder="Title"
-          />
+          <input class="modal__input" id="profile-title-input" type="text" name="title" minlength="2" maxlength="40" required placeholder="Title" />
           <span class="modal__input-error profile-title-input-error"></span>
           <input
             class="modal__input"
@@ -92,14 +77,7 @@
             maxlength="30"
           />
           <span class="modal__input-error add-card-title-input-error"></span>
-          <input
-            class="modal__input modal__input_type_url"
-            id="add-card-url-input"
-            type="url"
-            name="url"
-            required
-            placeholder="Image URL"
-          />
+          <input class="modal__input modal__input_type_url" id="add-card-url-input" type="url" name="url" required placeholder="Image URL" />
           <span class="modal__input-error add-card-url-input-error"></span>
           <button class="modal__save-button" type="submit">Create</button>
         </form>
@@ -109,11 +87,7 @@
     <!-- Card Preview Modal -->
     <div class="modal" id="preview-modal">
       <figure class="modal__container modal__container-image">
-        <button
-          class="modal__close-button modal__close-button-image"
-          id="modal__close-button-preview"
-          type="button"
-        ></button>
+        <button class="modal__close-button modal__close-button-image" id="modal__close-button-preview" type="button"></button>
         <img class="modal__preview-image" src="#" alt="" />
         <figcaption class="modal__preview-caption"></figcaption>
       </figure>
@@ -131,6 +105,5 @@
     </template>
 
     <script src="./pages/index.js" defer type="module"></script>
-    <!-- <script src="./pages/validate.js" defer></script> -->
   </body>
 </html>
