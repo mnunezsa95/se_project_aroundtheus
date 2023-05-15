@@ -13,10 +13,7 @@
     />
     <meta name="author" content="Marlon Nunez" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <title>Around the U.S</title>
     <link rel="icon" href="favicon.ico" />
     <link rel="stylesheet" href="pages/index.css" />
@@ -24,33 +21,17 @@
   <body class="page">
     <div class="page__content">
       <header class="header">
-        <img
-          src="./images/logo_white.svg"
-          alt="Around the United States Logo"
-          class="header__logo"
-        />
+        <img src="./images/logo_white.svg" alt="Around the United States Logo" class="header__logo" />
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            class="profile__icon"
-            src="./images/jacques-cousteau.jpg"
-            alt="Avatar"
-          />
+          <img class="profile__icon" src="./images/jacques-cousteau.jpg" alt="Avatar" />
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
-            <button
-              class="profile__edit-button"
-              type="button"
-              aria-label="edit picture button"
-            ></button>
+            <button class="profile__edit-button" type="button" aria-label="edit picture button"></button>
             <p class="profile__description">Explorer</p>
           </div>
-          <button
-            class="profile__add-button"
-            type="button"
-            aria-label="add picture button"
-          ></button>
+          <button class="profile__add-button" type="button" aria-label="add picture button"></button>
         </section>
         <section class="card page__section">
           <ul class="card__list"></ul>
@@ -64,18 +45,9 @@
     <!-- Edit Modal -->
     <div class="modal" id="edit-modal">
       <div class="modal__container">
-        <button
-          class="modal__close-button"
-          id="modal__close-profile-button"
-          type="button"
-        ></button>
+        <button class="modal__close-button" id="modal__close-profile-button" type="button"></button>
         <h3 class="modal__heading">Edit Profile</h3>
-        <form
-          class="modal__form"
-          name="profile-login-form"
-          id="profile-edit-form"
-          novalidate
-        >
+        <form class="modal__form" name="profile-login-form" id="profile-edit-form" novalidate>
           <input
             class="modal__input"
             id="profile-title-input"
@@ -97,9 +69,7 @@
             required
             placeholder="Description"
           />
-          <span
-            class="modal__input-error profile-description-input-error"
-          ></span>
+          <span class="modal__input-error profile-description-input-error"></span>
           <button class="modal__save-button" type="submit">Save</button>
         </form>
       </div>
@@ -108,11 +78,7 @@
     <!-- Add Card Modal -->
     <div class="modal" id="add-modal">
       <div class="modal__container">
-        <button
-          class="modal__close-button"
-          id="modal__close-card-button"
-          type="button"
-        ></button>
+        <button class="modal__close-button" id="modal__close-card-button" type="button"></button>
         <h3 class="modal__heading">New Place</h3>
         <form class="modal__form" name="add-card-form">
           <input
@@ -155,24 +121,16 @@
 
     <template id="card-template">
       <li class="card__list-item">
-        <button
-          class="card__delete-button"
-          type="button"
-          aria-label="delete picture button"
-        ></button>
+        <button class="card__delete-button" type="button" aria-label="delete picture button"></button>
         <img class="card__image" src="#" alt="" />
         <div class="card__description">
           <h2 class="card__title"></h2>
-          <button
-            class="card__like-button"
-            type="button"
-            aria-label="like picture button"
-          ></button>
+          <button class="card__like-button" type="button" aria-label="like picture button"></button>
         </div>
       </li>
     </template>
 
-    <script src="./scripts/index.js" defer></script>
-    <script src="./scripts/validate.js" defer></script>
+    <script src="./pages/index.js" defer type="module"></script>
+    <!-- <script src="./pages/validate.js" defer></script> -->
   </body>
 </html>
