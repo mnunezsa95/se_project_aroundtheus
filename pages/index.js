@@ -69,10 +69,11 @@ const config = {
 
 const editProfileFormValidator = new FormValidator(config, profileEditModal);
 const addCardFormValidator = new FormValidator(config, cardModal);
-// editProfileFormValidator.enableValidation();
-// addCardFormValidator.enableValidation();
+editProfileFormValidator.enableValidation();
+addCardFormValidator.enableValidation();
 
-// modal functions
+// ! Keep This Code
+// ------Modal Functions------ //
 function openProfileModal() {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
@@ -110,95 +111,25 @@ function submitCardForm(evt) {
   modalSaveButton.disabled = true;
 }
 
-// event listeners for profile title & description
+// ------Event Listeners for Profile Section------ //
 profileEditButton.addEventListener("click", openProfileModal);
 profileCloseButton.addEventListener("click", closeProfileModal);
 profileEditForm.addEventListener("submit", submitProfileForm);
 
-// event listeners for adding card
+// ------Event Listeners for Adding Card------ //
 addNewCardButton.addEventListener("click", openCardModal);
 closeCardModalButton.addEventListener("click", closeCardModal);
 addCardForm.addEventListener("submit", submitCardForm);
 
-// Close Image Modal
+// ------Event Listeners for Closing Card------ //
 function closeCardPreview() {
   closeModal(imageModal);
 }
 cardPreviewCloseButton.addEventListener("click", closeCardPreview);
 
 // ! Keep This Code
+// ------Loop to Create New Cards------ //
 initialCards.forEach((cardData) => {
   const card = new Card(cardData, "#card-template").generateCard();
   document.querySelector(".card__list").append(card);
 });
-
-/* ---------------------------------------------------------------------------------------------- */
-/*                                       Old Code To Delete                                       */
-/* ---------------------------------------------------------------------------------------------- */
-
-// card preview query selectors
-// const previewImageElement = document.querySelector(".modal__preview-image");
-
-// universal open/close modal functions
-// function openModal(modal) {
-//   modal.classList.add("modal_opened");
-//   document.addEventListener("keydown", closeByEscape);
-//   document.addEventListener("mousedown", closeViaOverlay);
-// }
-
-// function closeModal(modal) {
-//   modal.classList.remove("modal_opened");
-//   document.removeEventListener("keydown", closeByEscape);
-//   document.removeEventListener("mousedown", closeViaOverlay);
-// }
-
-// Esapce button to exit modal
-// function closeByEscape(evt) {
-//   if (evt.key === "Escape") {
-//     const modalOpened = document.querySelector(".modal_opened");
-//     closeModal(modalOpened);
-//   }
-// }
-
-// Overlay click to exit modals
-// function closeViaOverlay(evt) {
-//   if (!evt.target.closest(".modal__container")) {
-//     const modalOpened = document.querySelector(".modal_opened");
-//     closeModal(modalOpened);
-//   }
-// }
-
-// get cards function
-// function getCardElement(data) {
-//   const cardElement = cardTemplate.cloneNode(true);
-//   const cardTitle = cardElement.querySelector(".card__title");
-//   const cardImage = cardElement.querySelector(".card__image");
-
-// const likeButton = cardElement.querySelector(".card__like-button");
-// function toggleLikeButton() {
-//   likeButton.classList.toggle("card__like-button_active");
-// }
-// likeButton.addEventListener("click", toggleLikeButton);
-
-// const cardDeleteButton = cardElement.querySelector(".card__delete-button");
-// function deleteCard() {
-//   const cardListItem = cardDeleteButton.closest(".card__list-item");
-//   cardListItem.remove();
-// }
-// cardDeleteButton.addEventListener("click", deleteCard);
-
-// function previewImageModal() {
-//   const previewImageCaption = imageModal.querySelector(
-//     ".modal__preview-caption"
-//   );
-//   previewImageElement.src = data.link;
-//   previewImageElement.alt = data.name;
-//   openModal(imageModal);
-//   previewImageCaption.textContent = data.name;
-// }
-// cardImage.addEventListener("click", previewImageModal);
-// cardTitle.textContent = data.name;
-// cardImage.src = data.link;
-// cardImage.alt = data.name;
-// return cardElement;
-// }
