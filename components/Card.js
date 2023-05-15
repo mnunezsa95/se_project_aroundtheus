@@ -1,4 +1,4 @@
-import { openModal, closeModal, closeByEscape } from "../utils/utils.js";
+import { openModal, closeModal, closeByEscape, closeViaOverlay } from "../utils/utils.js";
 
 const imageModal = document.querySelector("#preview-modal");
 const previewImageElement = document.querySelector(".modal__preview-image");
@@ -33,9 +33,6 @@ export default class Card {
     previewImageCaption.textContent = this._name;
   }
 
-  //handleClosePicturePreview
-  _closeImageModal() {}
-
   _setEventListeners() {
     // like card button event listener
     const likeButton = this._cardElement.querySelector(".card__like-button");
@@ -54,8 +51,6 @@ export default class Card {
     cardImage.addEventListener("click", () => {
       this._openImageModal();
     });
-
-    // close card event listener
   }
 
   generateCard() {

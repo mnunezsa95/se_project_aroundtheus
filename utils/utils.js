@@ -25,4 +25,4 @@ function closeViaOverlay(evt) {
   }
 }
 
-export { openModal, closeModal, closeByEscape };
+export { openModal, closeModal, closeByEscape, closeViaOverlay };

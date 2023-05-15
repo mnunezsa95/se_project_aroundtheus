@@ -1,6 +1,6 @@
 // Import Card class
-import Card from "./Card.js";
-import { openModal, closeModal, closeByEscape } from "../utils/utils.js";
+import Card from "../components/Card.js";
+import { openModal, closeModal } from "../utils/utils.js";
 
 // ! Keep This Code
 const initialCards = [
@@ -31,37 +31,30 @@ const initialCards = [
 ];
 
 // ! Keep This Code
-// selecting Profile Modal
+// ------Profile Query Selelctors------ //
 const profileEditButton = document.querySelector(".profile__edit-button");
 const profileEditModal = document.querySelector("#edit-modal");
-const profileCloseButton = document.querySelector(
-  "#modal__close-profile-button"
-);
+const profileCloseButton = document.querySelector("#modal__close-profile-button");
 const profileTitle = document.querySelector(".profile__title");
 const profileDescription = document.querySelector(".profile__description");
 const profileTitleInput = document.querySelector("#profile-title-input");
-const profileDescriptionInput = document.querySelector(
-  "#profile-description-input"
-);
+const profileDescriptionInput = document.querySelector("#profile-description-input");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 
-// card template querySelectors
-const cardTemplate = document
-  .querySelector("#card-template")
-  .content.querySelector(".card__list-item");
+// ------Card Query Selectors------ //
 const cardList = document.querySelector(".card__list");
 
 // ! Keep This Code
-// selecting Add Card Modal
+// ------Card & Image Modal Query Selectors------ //
 const addNewCardButton = document.querySelector(".profile__add-button");
 const cardModal = document.querySelector("#add-modal");
-const closeCardModalButton = document.querySelector(
-  "#modal__close-card-button"
-);
+const closeCardModalButton = document.querySelector("#modal__close-card-button");
 const addCardForm = cardModal.querySelector(".modal__form");
 const cardTitleInput = addCardForm.querySelector(".modal__input_type_title");
 const cardUrlInput = addCardForm.querySelector(".modal__input_type_url");
 const modalSaveButton = addCardForm.querySelector(".modal__save-button");
+const imageModal = document.querySelector("#preview-modal");
+const cardPreviewCloseButton = document.querySelector(".modal__close-button-image");
 
 // modal functions
 function openProfileModal() {
@@ -93,7 +86,7 @@ function submitCardForm(evt) {
   evt.preventDefault();
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
-  const cardElement = getCardElement({ name, link });
+  const cardElement = new Card({ name, link }, "#card-template").generateCard();
   cardList.prepend(cardElement);
   closeCardModal();
   addCardForm.reset();
@@ -112,10 +105,6 @@ closeCardModalButton.addEventListener("click", closeCardModal);
 addCardForm.addEventListener("submit", submitCardForm);
 
 // Close Image Modal
-const imageModal = document.querySelector("#preview-modal");
-const cardPreviewCloseButton = document.querySelector(
-  ".modal__close-button-image"
-);
 function closeCardPreview() {
   closeModal(imageModal);
 }
@@ -126,6 +115,10 @@ initialCards.forEach((cardData) => {
   const card = new Card(cardData, "#card-template").generateCard();
   document.querySelector(".card__list").append(card);
 });
+
+/* ---------------------------------------------------------------------------------------------- */
+/*                                       Old Code To Delete                                       */
+/* ---------------------------------------------------------------------------------------------- */
 
 // card preview query selectors
 // const previewImageElement = document.querySelector(".modal__preview-image");
