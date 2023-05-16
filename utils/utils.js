@@ -17,7 +17,6 @@ function closeByEscape(evt) {
   }
 }
 
-// Overlay click to exit modals
 function closeViaOverlay(evt) {
   if (!evt.target.closest(".modal__container")) {
     const modalOpened = document.querySelector(".modal_opened");
