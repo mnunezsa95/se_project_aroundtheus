@@ -84,6 +84,7 @@ function openCardModal() {
 
 function submitProfileForm(evt) {
   evt.preventDefault();
+  closeModal(profileEditModal);
   profileTitle.textContent = profileTitleInput.value;
   profileDescription.textContent = profileDescriptionInput.value;
 }
@@ -94,6 +95,7 @@ function submitCardForm(evt) {
   const link = cardUrlInput.value;
   const cardElement = new Card({ name, link }, "#card-template").generateCard();
   cardList.prepend(cardElement);
+  closeModal(cardModal);
   addCardForm.reset();
   addCardFormValidator.toggleButtonState();
 }
