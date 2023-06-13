@@ -2,6 +2,7 @@
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import { openModal, closeModal } from "../utils/utils.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
 // ! Keep This Code
 const initialCards = [
@@ -70,8 +71,10 @@ const addCardFormValidator = new FormValidator(config, cardModal);
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
 
-// ! Keep This Code
-// ------Modal Functions------ //
+const newCardPopup = new PopupWithForm("#add-modal", (evt) => {});
+const editProfilePopup = new PopupWithForm("#edit-modal", () => {});
+
+// ! Keep This Code ------Modal Functions------ //
 function openProfileModal() {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
