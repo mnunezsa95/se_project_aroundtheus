@@ -1,4 +1,4 @@
-import { openModal, closeModal, closeByEscape, closeViaOverlay } from "../utils/utils.js";
+import { openModal } from "../utils/utils.js";
 
 const imageModal = document.querySelector("#preview-modal");
 const previewImageElement = document.querySelector(".modal__preview-image");
