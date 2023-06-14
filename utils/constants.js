@@ -25,10 +25,10 @@ export const initialCards = [
     link: "https://images.unsplash.com/photo-1532960401447-7dd05bef20b0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80",
   },
 ];
-export const profileEditModalSelector = document.querySelector("#edit-modal");
-export const cardModalSelector = document.querySelector("#add-modal");
 
 //! Used in index.js
+export const profileEditModalSelector = document.querySelector("#edit-modal");
+export const cardModalSelector = document.querySelector("#add-modal");
 export const profileEditButton = document.querySelector(".profile__edit-button");
 export const inputSelector = ".modal__input";
 export const addNewCardButton = document.querySelector(".profile__add-button");
@@ -42,7 +42,7 @@ export const cardList = document.querySelector(".card__list");
 //! Used in Card.js
 export const previewImageModal = document.querySelector("#preview-modal");
 export const previewImageCaption = document.querySelector(".modal__preview-caption");
-export const previewImage = document.querySelector(".modal__preview_image");
+export const previewImageElement = document.querySelector(".modal__preview-image");
 
 //! User in index.js
 export const config = {

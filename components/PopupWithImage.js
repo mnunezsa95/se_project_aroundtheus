@@ -1,5 +1,5 @@
 import Popup from "./Popup.js";
-import { previewImage, previewImageCaption, previewImageModal } from "../utils/constants.js";
+import { previewImageElement, previewImageCaption, previewImageModal } from "../utils/constants.js";
 
 export default class PopupWithImage extends Popup {
   constructor(popupSelector) {
@@ -7,9 +7,9 @@ export default class PopupWithImage extends Popup {
   }
 
   open({ name, link }) {
-    previewImageCaption.textContent = this._name;
-    previewImage.src = this._link;
-    previewImage.alt = this._name;
+    previewImageCaption.textContent = name;
+    previewImageElement.src = link;
+    previewImageElement.alt = name;
     super.open();
   }
 

@@ -3,6 +3,7 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import {
   initialCards,
@@ -16,12 +17,8 @@ import {
   cardTitleInput,
   cardUrlInput,
   cardList,
+  previewImageElement,
 } from "../utils/constants.js";
-
-initialCards.forEach((cardData) => {
-  const card = new Card(cardData, "#card-template").generateCard();
-  cardList.append(card);
-});
 
 /* ---------------------------------------------------------------------------------------------- */
 /*                                         Form Validator                                         */
@@ -48,7 +45,24 @@ profileEditButton.addEventListener("click", () => {
 });
 
 /* ---------------------------------------------------------------------------------------------- */
-/*                                          Card Classes                                          */
+/*                                          Section Class                                         */
+/* ---------------------------------------------------------------------------------------------- */
+
+const section = new Section(
+  {
+    items: initialCards,
+    renderer: ({ name, link }) => {
+      const cardElement = new Card({ name, link }, "#card-template").generateCard();
+      section.addItem(cardElement);
+    },
+  },
+  cardList
+);
+
+section.renderItems();
+
+/* ---------------------------------------------------------------------------------------------- */
+/*                                           Card Class                                           */
 /* ---------------------------------------------------------------------------------------------- */
 
 const newCardPopup = new PopupWithForm(cardModalSelector, submitCardForm);
@@ -56,8 +70,8 @@ const newCardPopup = new PopupWithForm(cardModalSelector, submitCardForm);
 function submitCardForm({ name, link }) {
   name = cardTitleInput.value;
   link = cardUrlInput.value;
-  const cardElement = new Card({ name, link }, "#card-template").generateCard();
-  cardList.prepend(cardElement);
+  const newCard = new Card({ name, link }, "#card-template").generateCard();
+  cardList.prepend(newCard);
   newCardPopup.close();
 }
 
@@ -69,3 +83,5 @@ addNewCardButton.addEventListener("click", () => {
 /* ---------------------------------------------------------------------------------------------- */
 /*                                          Image Classes                                         */
 /* ---------------------------------------------------------------------------------------------- */
+
+const previewImagePopup = new PopupWithImage(previewImageElement);
