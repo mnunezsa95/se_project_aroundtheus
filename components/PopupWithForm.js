@@ -8,10 +8,6 @@ export default class PopupWithFrom extends Popup {
     this._popupForm = this._popupElement.querySelector(".modal__form"); // selects modal form for specific instance of this obj
   }
 
-  open() {
-    super.open();
-  }
-
   close() {
     this._popupForm.reset();
     super.close();
@@ -36,6 +32,6 @@ export default class PopupWithFrom extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._popupElement.addEventListener("submit", this._handleFormSubmit);
+    this._popupElement.addEventListener("submit", this._submitForm);
   }
 }
