@@ -85,3 +85,4 @@ addNewCardButton.addEventListener("click", () => {
 /* ---------------------------------------------------------------------------------------------- */
 
 const previewImagePopup = new PopupWithImage(previewImageElement);
+previewImagePopup.open(cardList.name, cardList.link);
