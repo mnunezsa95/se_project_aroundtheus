@@ -32,6 +32,12 @@ export const cardModalSelector = document.querySelector("#add-modal");
 export const profileEditButton = document.querySelector(".profile__edit-button");
 export const inputSelector = ".modal__input";
 export const addNewCardButton = document.querySelector(".profile__add-button");
+export const profileTitleSelector = document.querySelector(".profile__title");
+export const profileDescriptionSelector = document.querySelector(".profile__description");
+const addCardForm = document.forms["add-card-form"];
+export const cardTitleInput = addCardForm.querySelector(".modal__input_type_title");
+export const cardUrlInput = addCardForm.querySelector(".modal__input_type_url");
+export const cardList = document.querySelector(".card__list");
 
 //! Used in Card.js
 export const previewImageModal = document.querySelector("#preview-modal");
