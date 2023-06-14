@@ -23,12 +23,12 @@ export default class Card {
   }
 
   //handleOpenPicturePreview
-  _openImageModal() {
-    openModal(previewImageModal);
-    previewImageElement.src = this._link;
-    previewImageElement.alt = this._name;
-    previewImageCaption.textContent = this._name;
-  }
+  // _openImageModal() {
+  //   openModal(previewImageModal);
+  //   previewImageElement.src = this._link;
+  //   previewImageElement.alt = this._name;
+  //   previewImageCaption.textContent = this._name;
+  // }
 
   _setEventListeners() {
     // like card button event listener
@@ -44,10 +44,10 @@ export default class Card {
     });
 
     // open card event listener
-    const cardImage = this._element.querySelector(".card__image");
-    cardImage.addEventListener("click", () => {
-      this._openImageModal();
-    });
+    // const cardImage = this._element.querySelector(".card__image");
+    // cardImage.addEventListener("click", () => {
+    //   this._openImageModal();
+    // });
   }
 
   generateCard() {
