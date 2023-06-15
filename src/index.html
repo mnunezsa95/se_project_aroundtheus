@@ -10,17 +10,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <title>Around the U.S</title>
     <link rel="icon" href="favicon.ico" />
-    <link rel="stylesheet" href="pages/index.css" />
   </head>
 
   <body class="page">
     <div class="page__content">
       <header class="header">
-        <img src="./images/logo_white.svg" alt="Around the United States Logo" class="header__logo" />
+        <img src="<%=require('./images/logo_white.svg')%>" alt="Around the United States Logo" class="header__logo" />
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img class="profile__icon" src="./images/jacques-cousteau.jpg" alt="Avatar" />
+          <img class="profile__icon" src="<%=require('./images/jacques-cousteau.jpg')%>" alt="Avatar" />
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button class="profile__edit-button" type="button" aria-label="edit picture button"></button>
@@ -104,7 +103,5 @@
         </div>
       </li>
     </template>
-
-    <script src="./pages/index.js" defer type="module"></script>
   </body>
 </html>
