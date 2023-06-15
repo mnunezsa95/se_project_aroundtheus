@@ -16,6 +16,8 @@ import {
   profileDescriptionSelector,
   profileEditModalSelector,
   profileEditButton,
+  profileDescriptionElement,
+  profileTitleElement,
   cardModalSelector,
   addNewCardButton,
   cardTitleInput,
@@ -44,10 +46,15 @@ const editProfilePopup = new PopupWithForm(profileEditModalSelector, (inputsObje
   editProfilePopup.close();
 });
 
-profileEditButton.addEventListener("click", () => {
+profileEditButton.addEventListener("click", openProfilePopup);
+
+function openProfilePopup() {
+  const { profileName, description } = userInfo.getUserInfo();
+  profileTitleElement.value = profileName;
+  profileDescriptionElement.value = description;
   editProfileFormValidator.toggleButtonState();
   editProfilePopup.open();
-});
+}
 
 /* ---------------------------------------------------------------------------------------------- */
 /*                                          Section Class                                         */

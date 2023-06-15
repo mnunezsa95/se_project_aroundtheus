@@ -15,11 +15,12 @@ export default class Card {
 
   //handleLikeButton
   _toggleLikeButton() {
-    this._cardElement.querySelector(".card__like-button").classList.add("card__like-button_active");
+    this._cardElement.querySelector(".card__like-button").classList.toggle("card__like-button_active");
   }
   //handleDeleteButton
   _deleteCard() {
     this._cardElement.remove();
+    this._cardElement = null;
   }
 
   //handleOpenPicturePreview
