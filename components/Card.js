@@ -1,11 +1,12 @@
 import { openModal } from "../utils/utils.js";
-import { previewImageModal, previewImageCaption, previewImageElement } from "../utils/constants.js";
+import { previewImageCaption, previewImageElement } from "../utils/constants.js";
 
 export default class Card {
-  constructor(cardData, cardSelector) {
+  constructor(cardData, cardSelector, handleCardClick) {
     this._name = cardData.name;
     this._link = cardData.link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -23,31 +24,27 @@ export default class Card {
   }
 
   //handleOpenPicturePreview
-  // _openImageModal() {
-  //   openModal(previewImageModal);
-  //   previewImageElement.src = this._link;
-  //   previewImageElement.alt = this._name;
-  //   previewImageCaption.textContent = this._name;
-  // }
+  _openImageModal() {
+    previewImageElement.src = this._link;
+    previewImageElement.alt = this._name;
+    previewImageCaption.textContent = this._name;
+  }
 
   _setEventListeners() {
-    // like card button event listener
     const likeButton = this._cardElement.querySelector(".card__like-button");
     likeButton.addEventListener("click", () => {
       this._toggleLikeButton();
     });
 
-    // delete card event listener
     const deleteButton = this._cardElement.querySelector(".card__delete-button");
     deleteButton.addEventListener("click", () => {
       this._deleteCard();
     });
 
-    // open card event listener
-    // const cardImage = this._element.querySelector(".card__image");
-    // cardImage.addEventListener("click", () => {
-    //   this._openImageModal();
-    // });
+    const cardImage = this._element.querySelector(".card__image");
+    cardImage.addEventListener("click", () => {
+      this._handleCardClick;
+    });
   }
 
   generateCard() {

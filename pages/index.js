@@ -1,4 +1,6 @@
-// Import Card class
+/* ---------------------------------------------------------------------------------------------- */
+/*                                             Imports                                            */
+/* ---------------------------------------------------------------------------------------------- */
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
@@ -18,6 +20,7 @@ import {
   cardUrlInput,
   cardList,
   previewImageElement,
+  previewImageModal,
 } from "../utils/constants.js";
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -45,21 +48,38 @@ profileEditButton.addEventListener("click", () => {
 });
 
 /* ---------------------------------------------------------------------------------------------- */
+/*                                Card Functions (Create & Submit)                                */
+/* ---------------------------------------------------------------------------------------------- */
+
+function createCard({ name, link }) {
+  const cardElement = new Card({ name, link }, "#card-template", submitCardForm);
+  return cardElement.generateCard();
+}
+
+function submitCardForm({ name, link }) {
+  name = cardTitleInput.value;
+  link = cardUrlInput.value;
+  const newCard = new Card({ name, link }, "#card-template", openCardClick).generateCard();
+  cardList.prepend(newCard);
+  newCardPopup.close();
+}
+
+/* ---------------------------------------------------------------------------------------------- */
 /*                                          Section Class                                         */
 /* ---------------------------------------------------------------------------------------------- */
 
-const section = new Section(
+const cardListSection = new Section(
   {
     items: initialCards,
     renderer: ({ name, link }) => {
-      const cardElement = new Card({ name, link }, "#card-template").generateCard();
-      section.addItem(cardElement);
+      const newCard = createCard({ name, link });
+      cardListSection.addItem(newCard);
     },
   },
   cardList
 );
 
-section.renderItems();
+cardListSection.renderItems();
 
 /* ---------------------------------------------------------------------------------------------- */
 /*                                           Card Class                                           */
@@ -67,22 +87,16 @@ section.renderItems();
 
 const newCardPopup = new PopupWithForm(cardModalSelector, submitCardForm);
 
-function submitCardForm({ name, link }) {
-  name = cardTitleInput.value;
-  link = cardUrlInput.value;
-  const newCard = new Card({ name, link }, "#card-template").generateCard();
-  cardList.prepend(newCard);
-  newCardPopup.close();
-}
-
 addNewCardButton.addEventListener("click", () => {
   addCardFormValidator.toggleButtonState();
   newCardPopup.open();
 });
 
 /* ---------------------------------------------------------------------------------------------- */
-/*                                          Image Classes                                         */
+/*                                          Image Class                                           */
 /* ---------------------------------------------------------------------------------------------- */
 
-const previewImagePopup = new PopupWithImage(previewImageElement);
-previewImagePopup.open({ name, link });
+const previewImagePopup = new PopupWithImage(previewImageModal);
+function openCardClick({ name, link }) {
+  previewImagePopup.open({ name, link });
+}
