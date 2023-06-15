@@ -1,4 +1,3 @@
-import { openModal } from "../utils/utils.js";
 import { previewImageCaption, previewImageElement } from "../utils/constants.js";
 
 export default class Card {
@@ -43,7 +42,7 @@ export default class Card {
 
     const cardImage = this._element.querySelector(".card__image");
     cardImage.addEventListener("click", () => {
-      this._handleCardClick;
+      this._handleCardClick({ name: this._name, link: this._link }); // destructuring the object
     });
   }
 

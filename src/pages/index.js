@@ -21,13 +21,13 @@ import {
   cardTitleInput,
   cardUrlInput,
   cardList,
-  previewImageElement,
   previewImageModal,
 } from "../utils/constants.js";
 
 /* ---------------------------------------------------------------------------------------------- */
 /*                                         Form Validator                                         */
 /* ---------------------------------------------------------------------------------------------- */
+
 const editProfileFormValidator = new FormValidator(config, profileEditModalSelector);
 const addCardFormValidator = new FormValidator(config, cardModalSelector);
 editProfileFormValidator.enableValidation();
@@ -50,23 +50,6 @@ profileEditButton.addEventListener("click", () => {
 });
 
 /* ---------------------------------------------------------------------------------------------- */
-/*                                Card Functions (Create & Submit)                                */
-/* ---------------------------------------------------------------------------------------------- */
-
-function createCard({ name, link }) {
-  const cardElement = new Card({ name, link }, "#card-template", submitCardForm);
-  return cardElement.generateCard();
-}
-
-function submitCardForm({ name, link }) {
-  name = cardTitleInput.value;
-  link = cardUrlInput.value;
-  const newCard = new Card({ name, link }, "#card-template", openCardClick).generateCard();
-  cardList.prepend(newCard);
-  newCardPopup.close();
-}
-
-/* ---------------------------------------------------------------------------------------------- */
 /*                                          Section Class                                         */
 /* ---------------------------------------------------------------------------------------------- */
 
@@ -84,10 +67,11 @@ const cardListSection = new Section(
 cardListSection.renderItems();
 
 /* ---------------------------------------------------------------------------------------------- */
-/*                                           Card Class                                           */
+/*                                      PopupWithForm Classes                                     */
 /* ---------------------------------------------------------------------------------------------- */
 
 const newCardPopup = new PopupWithForm(cardModalSelector, submitCardForm);
+const previewImagePopup = new PopupWithImage(previewImageModal);
 
 addNewCardButton.addEventListener("click", () => {
   addCardFormValidator.toggleButtonState();
@@ -95,10 +79,20 @@ addNewCardButton.addEventListener("click", () => {
 });
 
 /* ---------------------------------------------------------------------------------------------- */
-/*                                          Image Class                                           */
+/*                                         Card Functions                                         */
 /* ---------------------------------------------------------------------------------------------- */
 
-const previewImagePopup = new PopupWithImage(previewImageModal);
-function openCardClick({ name, link }) {
-  previewImagePopup.open({ name, link });
+function createCard({ name, link }) {
+  const cardElement = new Card({ name, link }, "#card-template", ({ name, link }) => {
+    previewImagePopup.open({ name, link });
+  });
+  return cardElement.generateCard();
+}
+
+function submitCardForm({ name, link }) {
+  name = cardTitleInput.value;
+  link = cardUrlInput.value;
+  const newCard = createCard({ name, link });
+  cardList.prepend(newCard);
+  newCardPopup.close();
 }

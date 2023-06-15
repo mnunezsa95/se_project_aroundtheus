@@ -34,7 +34,11 @@ export const inputSelector = ".modal__input";
 export const addNewCardButton = document.querySelector(".profile__add-button");
 export const profileTitleSelector = document.querySelector(".profile__title");
 export const profileDescriptionSelector = document.querySelector(".profile__description");
+
+//! Used internally within constants.js
 const addCardForm = document.forms["add-card-form"];
+
+//! Used in index.js
 export const cardTitleInput = addCardForm.querySelector(".modal__input_type_title");
 export const cardUrlInput = addCardForm.querySelector(".modal__input_type_url");
 export const cardList = document.querySelector(".card__list");
