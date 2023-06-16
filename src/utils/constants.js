@@ -37,12 +37,7 @@ export const profileDescriptionSelector = document.querySelector(".profile__desc
 export const profileDescriptionElement = document.querySelector("#profile-description-input");
 export const profileTitleElement = document.querySelector("#profile-title-input");
 
-//! Used internally within constants.js
-const addCardForm = document.forms["add-card-form"];
-
 //! Used in index.js
-export const cardTitleInput = addCardForm.querySelector(".modal__input_type_title");
-export const cardUrlInput = addCardForm.querySelector(".modal__input_type_url");
 export const cardList = document.querySelector(".card__list");
 
 //! Used in Card.js

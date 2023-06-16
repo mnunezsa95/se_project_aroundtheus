@@ -1,5 +1,4 @@
 import Popup from "../components/Popup.js";
-import { inputSelector } from "../utils/constants.js";
 
 export default class PopupWithFrom extends Popup {
   constructor(popupSelector, handleFormSubmit) {
@@ -16,7 +15,7 @@ export default class PopupWithFrom extends Popup {
 
   _getInputValues() {
     const inputsObject = {}; // object for storing data
-    this._inputList = document.querySelectorAll(inputSelector);
+    this._inputList = document.querySelectorAll(".modal__input");
     this._inputList.forEach((input) => {
       if (input.value !== "") {
         inputsObject[input.name] = input.value;

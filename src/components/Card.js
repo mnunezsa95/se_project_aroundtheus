@@ -1,5 +1,3 @@
-import { previewImageCaption, previewImageElement } from "../utils/constants.js";
-
 export default class Card {
   constructor(cardData, cardSelector, handleCardClick) {
     this._name = cardData.name;
@@ -21,13 +19,6 @@ export default class Card {
   _deleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
-  }
-
-  //handleOpenPicturePreview
-  _openImageModal() {
-    previewImageElement.src = this._link;
-    previewImageElement.alt = this._name;
-    previewImageCaption.textContent = this._name;
   }
 
   _setEventListeners() {

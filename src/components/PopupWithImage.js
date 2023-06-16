@@ -12,8 +12,4 @@ export default class PopupWithImage extends Popup {
     previewImageElement.src = link;
     super.open();
   }
-
-  close() {
-    super.close();
-  }
 }

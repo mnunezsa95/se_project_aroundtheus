@@ -20,8 +20,6 @@ import {
   profileTitleElement,
   cardModalSelector,
   addNewCardButton,
-  cardTitleInput,
-  cardUrlInput,
   cardList,
   previewImageModal,
 } from "../utils/constants.js";
@@ -77,7 +75,7 @@ cardListSection.renderItems();
 /*                                      PopupWithForm Classes                                     */
 /* ---------------------------------------------------------------------------------------------- */
 
-const newCardPopup = new PopupWithForm(cardModalSelector, submitCardForm);
+const newCardPopup = new PopupWithForm(cardModalSelector, submitCard);
 const previewImagePopup = new PopupWithImage(previewImageModal);
 
 addNewCardButton.addEventListener("click", () => {
@@ -96,10 +94,9 @@ function createCard({ name, link }) {
   return cardElement.generateCard();
 }
 
-function submitCardForm({ name, link }) {
-  name = cardTitleInput.value;
-  link = cardUrlInput.value;
-  const newCard = createCard({ name, link });
-  cardList.prepend(newCard);
+function submitCard({ place, url }) {
+  const newCardData = { name: place, link: url };
+  const newCard = createCard(newCardData);
+  cardListSection.prependItem(newCard); // prepend method from Section class
   newCardPopup.close();
 }
