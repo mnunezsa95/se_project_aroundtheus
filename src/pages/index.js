@@ -96,8 +96,7 @@ function createCard({ name, link }) {
 
 function submitCard({ title, url }) {
   const newCardData = { name: title, link: url };
-  console.log(newCardData);
-  const newCard = createCard(newCardData);
+  const newCard = createCard(newCardData); // creates "newCard" & stores the function returned execution of createCard fn
   cardListSection.prependItem(newCard); // prepend method from Section class
   newCardPopup.close();
 }
