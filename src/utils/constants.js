@@ -6,7 +6,7 @@ export const initialCards = [
   },
   {
     name: "Boston",
-    link: "https://images.unsplash.com/photo-1613937657470-c0a312757c7f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    link: "https://images.pexels.com/photos/4659963/pexels-photo-4659963.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
   },
   {
     name: "Chicago",
@@ -42,8 +42,6 @@ export const cardList = document.querySelector(".card__list");
 
 //! Used in Card.js
 export const previewImageModal = document.querySelector("#preview-modal");
-export const previewImageCaption = document.querySelector(".modal__preview-caption");
-export const previewImageElement = document.querySelector(".modal__preview-image");
 
 //! User in index.js
 export const config = {

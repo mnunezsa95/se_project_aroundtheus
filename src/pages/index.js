@@ -94,8 +94,9 @@ function createCard({ name, link }) {
   return cardElement.generateCard();
 }
 
-function submitCard({ place, url }) {
-  const newCardData = { name: place, link: url };
+function submitCard({ title, url }) {
+  const newCardData = { name: title, link: url };
+  console.log(newCardData);
   const newCard = createCard(newCardData);
   cardListSection.prependItem(newCard); // prepend method from Section class
   newCardPopup.close();
