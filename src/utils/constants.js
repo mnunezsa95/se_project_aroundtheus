@@ -6,7 +6,7 @@ export const initialCards = [
   },
   {
     name: "Boston",
-    link: "https://images.pexels.com/photos/4659963/pexels-photo-4659963.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    link: "https://images.unsplash.com/photo-1501979376754-2ff867a4f659?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
   },
   {
     name: "Chicago",
