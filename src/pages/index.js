@@ -23,6 +23,7 @@ import {
   cardList,
   previewImageModal,
 } from "../utils/constants.js";
+import API from "../components/API.js";
 
 /* ---------------------------------------------------------------------------------------------- */
 /*                                         Form Validator                                         */
@@ -100,3 +101,25 @@ function submitCard({ title, url }) {
   cardListSection.prependItem(newCard); // prepend method from Section class
   newCardPopup.close();
 }
+
+/* ---------------------------------------------------------------------------------------------- */
+/*                                           API Section                                          */
+/* ---------------------------------------------------------------------------------------------- */
+
+const api = new API({
+  baseURL: "https://around.nomoreparties.co/v1/cohort-3-en",
+  headers: {
+    authorization: "3bb6a079-e94c-4226-a104-258379e1896b",
+    "Content-Type": "application/json",
+  },
+});
+
+api.getInitialCards();
+api.getUserInfo();
+
+// api.getAppInfo().then(([cardsArray, userData]) => {
+//   userInfo.setUserInfo({
+//     title: userData.name,
+//     description: userData.about,
+//   });
+// });
