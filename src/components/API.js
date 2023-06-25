@@ -19,7 +19,7 @@ export default class Api {
   }
 
   /* ------------------ Patches UserInfo in Server ------------------ */
-  setUserInfo(userData) {
+  updateUserInfo(userData) {
     return fetch(`${this._baseURL}/users/me`, {
       method: "PATCH",
       headers: this._headers,
@@ -62,13 +62,13 @@ export default class Api {
   }
 
   /* ------------------ Adds NewCard and sends to Server ------------------ */
-  addCard(data) {
+  addCard(placeName, imgLink) {
     return fetch(`${this._baseURL}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
-        name: data.name,
-        link: data.link,
+        name: placeName,
+        link: imgLink,
       }),
     }).then((res) => {
       console.log(res);

@@ -14,6 +14,7 @@ import {
   profileTitleSelector,
   profileDescriptionSelector,
   profileEditModalSelector,
+  deleteCardModalSelector,
   profileEditButton,
   profileDescriptionElement,
   profileTitleElement,
@@ -68,14 +69,8 @@ api.getInitialCards().then((cards) => {
 const userInfo = new UserInfo(profileTitleSelector, profileDescriptionSelector, profileAvatarSelector);
 api.getUserInfo().then((userData) => {
   userInfo.setUserInfo(userData.name, userData.about);
+  userInfo.setProfileAvatar(userData.avatar);
 });
-
-const editProfilePopup = new PopupWithForm(profileEditModalSelector, (inputsObject) => {
-  userInfo.setUserInfo(inputsObject.title, inputsObject.description);
-  editProfilePopup.close();
-});
-
-profileEditButton.addEventListener("click", openProfilePopup);
 
 function openProfilePopup() {
   const { profileName, description } = userInfo.getUserInfo();
@@ -85,11 +80,21 @@ function openProfilePopup() {
   editProfilePopup.open();
 }
 
+function handleProfileFormSubmit({ title, description }) {
+  userInfo.setUserInfo(title, description);
+  api.updateUserInfo(userData);
+  editProfilePopup.close();
+}
+
+const editProfilePopup = new PopupWithForm(profileEditModalSelector, handleProfileFormSubmit);
+
+profileEditButton.addEventListener("click", openProfilePopup);
+
 /* ---------------------------------------------------------------------------------------------- */
 /*                                      PopupWithForm Classes                                     */
 /* ---------------------------------------------------------------------------------------------- */
 
-const newCardPopup = new PopupWithForm(cardModalSelector, submitCard);
+const newCardPopup = new PopupWithForm(cardModalSelector, handleSubmitCard);
 const previewImagePopup = new PopupWithImage(previewImageModal);
 
 addNewCardButton.addEventListener("click", () => {
@@ -100,6 +105,16 @@ addNewCardButton.addEventListener("click", () => {
 /* ---------------------------------------------------------------------------------------------- */
 /*                                         Card Functions                                         */
 /* ---------------------------------------------------------------------------------------------- */
+const deleteImagePopup = new PopupWithForm(deleteCardModalSelector, handleDeleteImageSubmit);
+
+function handleDeleteImageSubmit(imageId) {
+  api.deleteCard(imageId);
+  deleteImagePopup.close();
+}
+
+function handleDeletePopup(imageId) {
+  deleteImagePopup.open(imageId);
+}
 
 function createCard({ name, link }) {
   const cardElement = new Card({ name, link }, "#card-template", ({ name, link }) => {
@@ -108,16 +123,12 @@ function createCard({ name, link }) {
   return cardElement.generateCard();
 }
 
-function submitCard({ title, url }) {
-  const newCardData = { name: title, link: url };
-  const newCard = createCard(newCardData); // creates "newCard" & stores the function returned execution of createCard fn
-  cardListSection.prependItem(newCard); // prepend method from Section class
+function handleSubmitCard({ title, url }) {
+  api.addCard(title, url).then((card) => {
+    const newCard = createCard(card);
+    cardListSelector.prependItem(newCard);
+  });
   newCardPopup.close();
 }
 
-// api.getAppInfo().then(([cardsArray, userData]) => {
-//   userInfo.setUserInfo({
-//     title: userData.name,
-//     description: userData.about,
-//   });
-// });
+api.getAppInfo().then(([cardsArray, userData]) => {});

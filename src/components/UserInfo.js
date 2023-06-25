@@ -16,4 +16,8 @@ export default class UserInfo {
     this._nameElement.textContent = nameInfo;
     this._descriptionElement.textContent = jobInfo;
   }
+
+  setProfileAvatar(avatarLink) {
+    this._avatarElement.src = avatarLink;
+  }
 }
