@@ -34,11 +34,12 @@ export const inputSelector = ".modal__input";
 export const addNewCardButton = document.querySelector(".profile__add-button");
 export const profileTitleSelector = document.querySelector(".profile__title");
 export const profileDescriptionSelector = document.querySelector(".profile__description");
+export const profileAvatarSelector = document.querySelector(".profile__icon");
 export const profileDescriptionElement = document.querySelector("#profile-description-input");
 export const profileTitleElement = document.querySelector("#profile-title-input");
 
 //! Used in index.js
-export const cardList = document.querySelector(".card__list");
+export const cardListSelector = document.querySelector(".card__list");
 
 //! Used in Card.js
 export const previewImageModal = document.querySelector("#preview-modal");
