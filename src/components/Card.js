@@ -30,9 +30,8 @@ export default class Card {
   _getData() {
     const cardPassed = this;
     const data = {
-      name: this.name,
-      link: this.link,
-      imageID: this.imageID,
+      name: this._name,
+      link: this._link,
       card: cardPassed,
     };
     return data;
