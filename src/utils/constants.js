@@ -38,9 +38,10 @@ export const profileDescriptionSelector = document.querySelector(".profile__desc
 export const profileAvatarSelector = document.querySelector(".profile__icon");
 export const profileDescriptionElement = document.querySelector("#profile-description-input");
 export const profileTitleElement = document.querySelector("#profile-title-input");
+export const cardTemplateElement = "#card-template";
 
 //! Used in index.js
-export const cardListSelector = document.querySelector(".card__list");
+export const cardListElement = document.querySelector(".card__list");
 
 //! Used in Card.js
 export const previewImageModal = document.querySelector("#preview-modal");

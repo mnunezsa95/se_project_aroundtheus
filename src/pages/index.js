@@ -20,9 +20,10 @@ import {
   profileTitleElement,
   cardModalSelector,
   addNewCardButton,
-  cardListSelector,
+  cardListElement,
   previewImageModal,
   profileAvatarSelector,
+  cardTemplateElement,
 } from "../utils/constants.js";
 import API from "../components/API.js";
 
@@ -47,7 +48,8 @@ const api = new API({
   },
 });
 
-const myUserID = "5578a2cd7bb9cc9c1c62618d";
+// const myUserID = "5578a2cd7bb9cc9c1c62618d";
+const myUserID = null;
 
 api.getInitialCards().then((cards) => {
   const cardListSection = new Section(
@@ -58,10 +60,11 @@ api.getInitialCards().then((cards) => {
         cardListSection.addItem(newCard);
       },
     },
-    cardListSelector
+    cardListElement
   );
   cardListSection.renderItems();
 });
+
 /* ---------------------------------------------------------------------------------------------- */
 /*                                         Profile Classes                                        */
 /* ---------------------------------------------------------------------------------------------- */
@@ -82,7 +85,7 @@ function openProfilePopup() {
 
 function handleProfileFormSubmit({ title, description }) {
   userInfo.setUserInfo(title, description);
-  api.updateUserInfo(userData);
+  api.updateUserInfo(title, description);
   editProfilePopup.close();
 }
 
@@ -94,41 +97,51 @@ profileEditButton.addEventListener("click", openProfilePopup);
 /*                                      PopupWithForm Classes                                     */
 /* ---------------------------------------------------------------------------------------------- */
 
-const newCardPopup = new PopupWithForm(cardModalSelector, handleSubmitCard);
 const previewImagePopup = new PopupWithImage(previewImageModal);
-
-addNewCardButton.addEventListener("click", () => {
-  addCardFormValidator.toggleButtonState();
-  newCardPopup.open();
-});
-
-/* ---------------------------------------------------------------------------------------------- */
-/*                                         Card Functions                                         */
-/* ---------------------------------------------------------------------------------------------- */
+const addNewCardPopup = new PopupWithForm(cardModalSelector, handleSubmitCard);
 const deleteImagePopup = new PopupWithForm(deleteCardModalSelector, handleDeleteImageSubmit);
 
-function handleDeleteImageSubmit(imageId) {
-  api.deleteCard(imageId);
+function handleCardClick(data) {
+  previewImagePopup.open(data);
+}
+
+function handleDeleteImageSubmit(data) {
+  api.deleteCard(data.imageId);
+  let cardToDelete = document.getElementById(data.imageId);
+  cardToDelete.remove();
+  cardToDelete.null;
   deleteImagePopup.close();
 }
+
+const confirmDeleteBtn = document.querySelector(".modal__delete-card-button");
+confirmDeleteBtn.addEventListener("click", handleDeleteImageSubmit);
 
 function handleDeletePopup(imageId) {
   deleteImagePopup.open(imageId);
 }
 
-function createCard({ name, link }) {
-  const cardElement = new Card({ name, link }, "#card-template", ({ name, link }) => {
-    previewImagePopup.open({ name, link });
-  });
-  return cardElement.generateCard();
+/* ---------------------------------------------------------------------------------------------- */
+/*                                         Card Functions                                         */
+/* ---------------------------------------------------------------------------------------------- */
+
+addNewCardButton.addEventListener("click", () => {
+  addCardFormValidator.toggleButtonState();
+  addNewCardPopup.open();
+});
+
+//! Do not delete
+function createCard(data) {
+  const newCard = new Card(data, cardTemplateElement, handleCardClick, handleDeletePopup, myUserID);
+  return newCard.generateCard();
 }
 
+//! Do not delete
 function handleSubmitCard({ title, url }) {
   api.addCard(title, url).then((card) => {
     const newCard = createCard(card);
-    cardListSelector.prependItem(newCard);
+    cardListElement.prepend(newCard);
   });
-  newCardPopup.close();
+  addNewCardPopup.close();
 }
 
 api.getAppInfo().then(([cardsArray, userData]) => {});

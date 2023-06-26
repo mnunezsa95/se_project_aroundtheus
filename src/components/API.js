@@ -19,13 +19,13 @@ export default class Api {
   }
 
   /* ------------------ Patches UserInfo in Server ------------------ */
-  updateUserInfo(userData) {
+  updateUserInfo(name, profession) {
     return fetch(`${this._baseURL}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        name: userData.name,
-        about: userData.description,
+        name: name,
+        about: profession,
       }),
     }).then((res) => {
       console.log(res);
@@ -71,7 +71,6 @@ export default class Api {
         link: imgLink,
       }),
     }).then((res) => {
-      console.log(res);
       return this._checkServerResponse(res);
     });
   }
@@ -82,7 +81,6 @@ export default class Api {
       method: "DELETE",
       headers: this._headers,
     }).then((res) => {
-      console.log(res);
       return this._checkServerResponse(res);
     });
   }
