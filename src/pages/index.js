@@ -69,12 +69,14 @@ api.getInitialCards().then((cards) => {
 /*                                         Profile Classes                                        */
 /* ---------------------------------------------------------------------------------------------- */
 
+//! Do Not Delete
 const userInfo = new UserInfo(profileTitleSelector, profileDescriptionSelector, profileAvatarSelector);
 api.getUserInfo().then((userData) => {
   userInfo.setUserInfo(userData.name, userData.about);
   userInfo.setProfileAvatar(userData.avatar);
 });
 
+//! Do Not Delete
 function openProfilePopup() {
   const { profileName, description } = userInfo.getUserInfo();
   profileTitleElement.value = profileName;
@@ -83,6 +85,7 @@ function openProfilePopup() {
   editProfilePopup.open();
 }
 
+//! Do Not Delete
 function handleProfileFormSubmit({ title, description }) {
   userInfo.setUserInfo(title, description);
   api.updateUserInfo(title, description);
@@ -113,6 +116,11 @@ function handleDeleteImageSubmit(data) {
   deleteImagePopup.close();
 }
 
+//! Do Not Delete
+function handleCardLikeClick(cardId, isLiked) {
+  api.changeLikeCardStatus(cardId, isLiked);
+}
+
 const confirmDeleteBtn = document.querySelector(".modal__delete-card-button");
 confirmDeleteBtn.addEventListener("click", handleDeleteImageSubmit);
 
@@ -131,7 +139,7 @@ addNewCardButton.addEventListener("click", () => {
 
 //! Do not delete
 function createCard(data) {
-  const newCard = new Card(data, cardTemplateElement, handleCardClick, handleDeletePopup, myUserID);
+  const newCard = new Card(data, cardTemplateElement, handleCardClick, handleDeletePopup, handleCardLikeClick);
   return newCard.generateCard();
 }
 
