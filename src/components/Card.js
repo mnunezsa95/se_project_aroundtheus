@@ -26,11 +26,9 @@ export default class Card {
   }
 
   _getData() {
-    const cardPassed = this;
     const data = {
       name: this._name,
       link: this._link,
-      card: cardPassed,
     };
     return data;
   }
