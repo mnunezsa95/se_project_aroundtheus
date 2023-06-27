@@ -7,6 +7,14 @@ export default class PopupWithFrom extends Popup {
     this._popupForm = this._popupElement.querySelector(".modal__form"); // selects modal form for specific instance of this obj
   }
 
+  setLoading(isLoading, submitSave) {
+    if (isLoading) {
+      this._popupElement.querySelector(".modal__save-button").textContent = "Saving...";
+    } else {
+      this._popupElement.querySelector(".modal__save-button").textContent = submitSave;
+    }
+  }
+
   close() {
     super.close();
     this._popupForm.reset();

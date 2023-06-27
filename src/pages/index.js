@@ -87,7 +87,10 @@ function openProfilePopup() {
 //! Do Not Delete
 function handleProfileFormSubmit({ title, description }) {
   userInfo.setUserInfo(title, description);
-  api.updateUserInfo(title, description);
+  editProfilePopup.setLoading(true);
+  api.updateUserInfo(title, description).then(() => {
+    editProfilePopup.setLoading(false, "Save");
+  });
   editProfilePopup.close();
 }
 
@@ -111,18 +114,16 @@ function handleCardLikeClick(cardId, isLiked) {
   api.changeLikeCardStatus(cardId, isLiked);
 }
 
-const confirmDeleteBtn = document.querySelector(".modal__save-button");
+const confirmDeleteBtn = document.querySelector(".modal__delete-card-button");
 confirmDeleteBtn.addEventListener("click", handleDeletePopup);
 
 function handleDeletePopup({ _id: cardId }) {
-  api.deleteCard(cardId).then(() => {
-    deleteImagePopup.open(cardId);
-  });
-  deleteImagePopup.close();
+  deleteImagePopup.open(cardId);
+  api
+    .deleteCard(cardId)
+    .then(() => {})
+    .finally(() => {});
 }
-
-// let deleteMessage = document.querySelector("#modal__delete-card-button");
-// deleteMessage.textContent = "Saving...";
 
 /* ---------------------------------------------------------------------------------------------- */
 /*                                         Card Functions                                         */
@@ -131,6 +132,7 @@ function handleDeletePopup({ _id: cardId }) {
 addNewCardButton.addEventListener("click", () => {
   addCardFormValidator.toggleButtonState();
   addNewCardPopup.open();
+  addNewCardPopup.setLoading(false, "Create");
 });
 
 //! Do not delete
@@ -145,6 +147,7 @@ function handleSubmitCard({ title, url }) {
     const newCard = createCard(card);
     cardListElement.prepend(newCard);
   });
+  addNewCardPopup.setLoading(true);
   addNewCardPopup.close();
 }
 
