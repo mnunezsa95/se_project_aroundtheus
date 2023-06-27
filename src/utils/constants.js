@@ -29,6 +29,7 @@ export const initialCards = [
 //! Used in index.js
 export const profileEditModalSelector = document.querySelector("#edit-modal");
 export const cardModalSelector = document.querySelector("#add-modal");
+export const profileAvatarModalSelector = document.querySelector("#update-profile-modal");
 export const deleteCardModalSelector = document.querySelector("#delete-card-modal");
 export const profileEditButton = document.querySelector(".profile__edit-button");
 export const inputSelector = ".modal__input";

@@ -19,7 +19,10 @@
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img class="profile__icon" src="<%=require('./images/jacques-cousteau.jpg')%>" alt="Avatar" />
+          <div class="profile__icon_container">
+            <img class="profile__icon" src="<%=require('./images/jacques-cousteau.jpg')%>" alt="Avatar" />
+            <button class="profile__icon-edit-button" type="button"></button>
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button class="profile__edit-button" type="button" aria-label="edit picture button"></button>
@@ -107,9 +110,9 @@
       <div class="modal__container">
         <button class="modal__close-button" id="modal__close-update-profile-button" type="button"></button>
         <h3 class="modal__heading">Change profile picture</h3>
-        <form class="modal__form" name="add-card-form">
+        <form class="modal__form" name="profile-avatar-form">
           <input class="modal__input modal__input_type_url" id="edit-profile-avatar-input" type="url" name="url" required placeholder="Profile URL" />
-          <span class="modal__input-error profile-url-input-error"></span>
+          <span class="modal__input-error edit-profile-avatar-input-error"></span>
           <button class="modal__save-button" id="modal__update-profile-button" type="submit">Save</button>
         </form>
       </div>

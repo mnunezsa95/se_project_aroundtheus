@@ -1,9 +1,10 @@
 export default class Card {
-  constructor({ name, link, likes, _id, userId }, cardSelector, handleCardClick, handleDeleteClick, handleCardlike) {
+  constructor({ name, link, likes, _id, userId, myId }, cardSelector, handleCardClick, handleDeleteClick, handleCardlike) {
     this._name = name;
     this._link = link;
     this._likes = likes;
     this._id = _id;
+    this._myId = myId;
     this._userId = userId;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
@@ -22,9 +23,6 @@ export default class Card {
     imageElement.src = this._link;
     this._cardElement.id = this.imageID;
     this._cardElement.querySelector(".card__title").textContent = this._name;
-    if (this.myID !== this.ownerId) {
-      this._cardElement.querySelector(".card__delete-button");
-    }
   }
 
   _getData() {
@@ -71,9 +69,9 @@ export default class Card {
     });
 
     const deleteButton = this._cardElement.querySelector(".card__delete-button");
-    deleteButton.addEventListener("click", () => {
+    deleteButton.addEventListener("click", (evt) => {
+      evt.preventDefault();
       this._handleDeleteClick(this);
-      this._handleDeleteCard();
     });
 
     const cardImage = this._element.querySelector(".card__image");

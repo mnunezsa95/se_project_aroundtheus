@@ -11,15 +11,16 @@ import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import {
+  profileAvatarModalSelector,
+  profileEditModalSelector,
+  cardModalSelector,
   config,
   profileTitleSelector,
   profileDescriptionSelector,
-  profileEditModalSelector,
   deleteCardModalSelector,
   profileEditButton,
   profileDescriptionElement,
   profileTitleElement,
-  cardModalSelector,
   addNewCardButton,
   cardListElement,
   previewImageModal,
@@ -27,6 +28,7 @@ import {
   cardTemplateElement,
 } from "../utils/constants.js";
 import API from "../components/API.js";
+import { data } from "autoprefixer";
 
 /* ---------------------------------------------------------------------------------------------- */
 /*                                         Form Validator                                         */
@@ -34,8 +36,11 @@ import API from "../components/API.js";
 
 const editProfileFormValidator = new FormValidator(config, profileEditModalSelector);
 const addCardFormValidator = new FormValidator(config, cardModalSelector);
+const avatarFromValidator = new FormValidator(config, profileAvatarModalSelector);
+
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
+avatarFromValidator.enableValidation();
 
 /* ---------------------------------------------------------------------------------------------- */
 /*                                           API Section                                          */
@@ -95,6 +100,23 @@ function handleProfileFormSubmit({ title, description }) {
 }
 
 profileEditButton.addEventListener("click", openProfilePopup);
+
+const changeProfileAvatar = new PopupWithForm(profileAvatarModalSelector, handleProfileImageSubmit);
+// changeProfileAvatar.open();
+
+function handleProfileImageSubmit() {
+  const profileIcon = document.querySelector(".profile__icon-edit-button");
+  profileIcon.addEventListener("click", () => {
+    changeProfileAvatar.open();
+  });
+  // changeProfileAvatar.open();
+  // changeProfileAvatar.setLoading(true);
+  // Api.setUserAvatar(data).then((data) => {
+  //   userInfo.setProfileAvatar(data.avatar);
+  //   changeProfileAvatar.close();
+  // });
+}
+
 /* ---------------------------------------------------------------------------------------------- */
 /*                                      PopupWithForm Classes                                     */
 /* ---------------------------------------------------------------------------------------------- */
@@ -102,7 +124,7 @@ profileEditButton.addEventListener("click", openProfilePopup);
 const editProfilePopup = new PopupWithForm(profileEditModalSelector, handleProfileFormSubmit);
 const previewImagePopup = new PopupWithImage(previewImageModal);
 const addNewCardPopup = new PopupWithForm(cardModalSelector, handleSubmitCard);
-const deleteImagePopup = new PopupWithConfirm(deleteCardModalSelector, handleDeletePopup);
+const deleteImagePopup = new PopupWithConfirm(deleteCardModalSelector, handleDeleteClick);
 deleteImagePopup.setEventListeners();
 
 function handleCardClick(data) {
@@ -114,15 +136,24 @@ function handleCardLikeClick(cardId, isLiked) {
   api.changeLikeCardStatus(cardId, isLiked);
 }
 
-const confirmDeleteBtn = document.querySelector(".modal__delete-card-button");
-confirmDeleteBtn.addEventListener("click", handleDeletePopup);
-
-function handleDeletePopup({ _id: cardId }) {
+//! Do Not Delete -- Need to add functionality to remove card without refreshing
+// both actions below are wrong. 1. create an eventListener for the sumbit button. 2. after the clock on this button - make an API call. then receive the response. and only THEN call the .close method
+function handleDeleteClick({ _id: cardId }) {
   deleteImagePopup.open(cardId);
-  api
-    .deleteCard(cardId)
-    .then(() => {})
-    .finally(() => {});
+  const submitDeleteCardButton = document.querySelector(".modal__delete-card-button");
+  submitDeleteCardButton.addEventListener("click", (evt) => {
+    deleteImagePopup.setLoading(true);
+    evt.preventDefault();
+    api
+      .deleteCard(cardId)
+      .then(() => {
+        deleteImagePopup.close();
+      })
+      .catch(() => {
+        console.error("Error, Cannot Delete");
+      });
+  });
+  deleteImagePopup.setLoading(false, "Yes");
 }
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -137,7 +168,7 @@ addNewCardButton.addEventListener("click", () => {
 
 //! Do not delete
 function createCard(data) {
-  const newCard = new Card(data, cardTemplateElement, handleCardClick, handleDeletePopup, handleCardLikeClick);
+  const newCard = new Card(data, cardTemplateElement, handleCardClick, handleDeleteClick, handleCardLikeClick);
   return newCard.generateCard();
 }
 
