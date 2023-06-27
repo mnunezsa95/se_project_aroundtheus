@@ -7,6 +7,7 @@ import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import {
@@ -48,15 +49,13 @@ const api = new API({
   },
 });
 
-// const myUserID = "5578a2cd7bb9cc9c1c62618d";
-const myUserID = null;
-
+//! Do Not Delete
 api.getInitialCards().then((cards) => {
   const cardListSection = new Section(
     {
       items: cards,
-      renderer: ({ name, link }) => {
-        const newCard = createCard({ name, link });
+      renderer: (data) => {
+        const newCard = createCard(data);
         cardListSection.addItem(newCard);
       },
     },
@@ -92,28 +91,19 @@ function handleProfileFormSubmit({ title, description }) {
   editProfilePopup.close();
 }
 
-const editProfilePopup = new PopupWithForm(profileEditModalSelector, handleProfileFormSubmit);
-
 profileEditButton.addEventListener("click", openProfilePopup);
-
 /* ---------------------------------------------------------------------------------------------- */
 /*                                      PopupWithForm Classes                                     */
 /* ---------------------------------------------------------------------------------------------- */
 
+const editProfilePopup = new PopupWithForm(profileEditModalSelector, handleProfileFormSubmit);
 const previewImagePopup = new PopupWithImage(previewImageModal);
 const addNewCardPopup = new PopupWithForm(cardModalSelector, handleSubmitCard);
-const deleteImagePopup = new PopupWithForm(deleteCardModalSelector, handleDeleteImageSubmit);
+const deleteImagePopup = new PopupWithConfirm(deleteCardModalSelector, handleDeletePopup);
+deleteImagePopup.setEventListeners();
 
 function handleCardClick(data) {
   previewImagePopup.open(data);
-}
-
-function handleDeleteImageSubmit(data) {
-  api.deleteCard(data.imageId);
-  let cardToDelete = document.getElementById(data.imageId);
-  cardToDelete.remove();
-  cardToDelete.null;
-  deleteImagePopup.close();
 }
 
 //! Do Not Delete
@@ -121,12 +111,18 @@ function handleCardLikeClick(cardId, isLiked) {
   api.changeLikeCardStatus(cardId, isLiked);
 }
 
-const confirmDeleteBtn = document.querySelector(".modal__delete-card-button");
-confirmDeleteBtn.addEventListener("click", handleDeleteImageSubmit);
+const confirmDeleteBtn = document.querySelector(".modal__save-button");
+confirmDeleteBtn.addEventListener("click", handleDeletePopup);
 
-function handleDeletePopup(imageId) {
-  deleteImagePopup.open(imageId);
+function handleDeletePopup({ _id: cardId }) {
+  api.deleteCard(cardId).then(() => {
+    deleteImagePopup.open(cardId);
+  });
+  deleteImagePopup.close();
 }
+
+// let deleteMessage = document.querySelector("#modal__delete-card-button");
+// deleteMessage.textContent = "Saving...";
 
 /* ---------------------------------------------------------------------------------------------- */
 /*                                         Card Functions                                         */

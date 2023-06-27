@@ -1,6 +1,6 @@
 import Popup from "../components/Popup.js";
 
-export default class PopupWithFrom extends Popup {
+export default class PopupWithConfirm extends Popup {
   constructor(popupSelector, handleFormSubmit) {
     super({ popupSelector }); // creates the popup element
     this._handleFormSubmit = handleFormSubmit;
@@ -9,7 +9,6 @@ export default class PopupWithFrom extends Popup {
 
   close() {
     super.close();
-    this._popupForm.reset();
     this._popupElement.removeEventListener("submit", this._handleFormSubmit);
   }
 

@@ -1,5 +1,5 @@
 export default class Card {
-  constructor({ name, link, _id, likes, userId }, cardSelector, handleCardClick, handleDeletePopup, handleCardlike) {
+  constructor({ name, link, likes, _id, userId }, cardSelector, handleCardClick, handleDeletePopup, handleCardlike) {
     this._name = name;
     this._link = link;
     this._likes = likes;
@@ -45,17 +45,12 @@ export default class Card {
 
   //handleLikeButton
   _handleToggleLikeButton() {
-    this._handleCardlike(this._id, this.isLiked())
-      .then((data) => {
-        this._likes = data.likes;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this._handleCardlike(this._id, this.isLiked());
+    this._cardElement.querySelector(".card__like-button").classList.toggle("card__like-button_active");
   }
 
   //handleDeleteButton
-  _handleDeleteCard() {
+  handleDeleteCard() {
     this._cardElement.remove();
     this._cardElement = null;
   }
@@ -69,7 +64,7 @@ export default class Card {
     if (this.myID === this.ownerId) {
       const deleteButton = this._cardElement.querySelector(".card__delete-button");
       deleteButton.addEventListener("click", () => {
-        this._handleDeletePopup(this._getData());
+        this._handleDeletePopup(this);
       });
     }
 
