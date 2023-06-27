@@ -43,10 +43,19 @@ export default class Card {
     });
   }
 
+  _updateLikes() {
+    this._cardElement.querySelector(".card__like-counter").textContent = this._likes.length;
+    if (!this.isLiked()) {
+      this._cardElement.querySelector(".card__like-button").classList.add("card__like-button_active");
+    } else {
+      this._cardElement.querySelector(".card__like-button").classList.remove("card__like-button_active");
+    }
+  }
+
   //handleLikeButton
   _handleToggleLikeButton() {
     this._handleCardlike(this._id, this.isLiked());
-    this._cardElement.querySelector(".card__like-button").classList.toggle("card__like-button_active");
+    this._updateLikes();
   }
 
   //handleDeleteButton
