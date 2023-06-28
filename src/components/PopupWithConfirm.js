@@ -6,6 +6,10 @@ export default class PopupWithConfirm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
   }
 
+  setSubmitAction(action) {
+    this._handleFormSubmit = action;
+  }
+
   setLoading(isLoading, submitSave) {
     if (isLoading) {
       this._popupElement.querySelector(".modal__save-button").textContent = "Deleting...";
@@ -21,6 +25,6 @@ export default class PopupWithConfirm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._popupElement.addEventListener("submit", this._handleFormSubmit);
+    this._popupElement.addEventListener("click", this._handleFormSubmit);
   }
 }

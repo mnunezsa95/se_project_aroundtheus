@@ -124,36 +124,11 @@ function handleProfileImageSubmit() {
 const editProfilePopup = new PopupWithForm(profileEditModalSelector, handleProfileFormSubmit);
 const previewImagePopup = new PopupWithImage(previewImageModal);
 const addNewCardPopup = new PopupWithForm(cardModalSelector, handleSubmitCard);
-const deleteImagePopup = new PopupWithConfirm(deleteCardModalSelector, handleDeleteClick);
+const deleteImagePopup = new PopupWithConfirm(deleteCardModalSelector);
 deleteImagePopup.setEventListeners();
 
 function handleCardClick(data) {
   previewImagePopup.open(data);
-}
-
-//! Do Not Delete
-function handleCardLikeClick(cardId, isLiked) {
-  api.changeLikeCardStatus(cardId, isLiked);
-}
-
-//! Do Not Delete -- Need to add functionality to remove card without refreshing
-// both actions below are wrong. 1. create an eventListener for the sumbit button. 2. after the clock on this button - make an API call. then receive the response. and only THEN call the .close method
-function handleDeleteClick({ _id: cardId }) {
-  deleteImagePopup.open(cardId);
-  const submitDeleteCardButton = document.querySelector(".modal__delete-card-button");
-  submitDeleteCardButton.addEventListener("click", (evt) => {
-    deleteImagePopup.setLoading(true);
-    evt.preventDefault();
-    api
-      .deleteCard(cardId)
-      .then(() => {
-        deleteImagePopup.close();
-      })
-      .catch(() => {
-        console.error("Error, Cannot Delete");
-      });
-  });
-  deleteImagePopup.setLoading(false, "Yes");
 }
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -168,7 +143,27 @@ addNewCardButton.addEventListener("click", () => {
 
 //! Do not delete
 function createCard(data) {
-  const newCard = new Card(data, cardTemplateElement, handleCardClick, handleDeleteClick, handleCardLikeClick);
+  const newCard = new Card(
+    data,
+    cardTemplateElement,
+    function handleCardClick() {
+      previewImagePopup.open(data);
+    },
+    function handleCardDelete() {
+      deleteImagePopup.open(data._id);
+      deleteImagePopup.setLoading(true);
+      deleteImagePopup.setSubmitAction(() => {
+        api.deleteCard(data._id).then(() => {
+          newCard.remove();
+          deleteImagePopup.close();
+          deleteImagePopup.setLoading(false, "Yes");
+        });
+      });
+    },
+    function handleCardLikeClick(data) {
+      api.changeLikeCardStatus(data._id, isLiked);
+    }
+  );
   return newCard.generateCard();
 }
 
@@ -181,5 +176,3 @@ function handleSubmitCard({ title, url }) {
   addNewCardPopup.setLoading(true);
   addNewCardPopup.close();
 }
-
-api.getAppInfo().then(([cardsArray, userData]) => {});
