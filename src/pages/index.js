@@ -27,7 +27,6 @@ import {
   previewImageModal,
   cardTemplateElement,
   profileAvatarPeniclIcon,
-  initialCards,
 } from "../utils/constants.js";
 import API from "../components/API.js";
 import { data } from "autoprefixer";
@@ -128,11 +127,11 @@ profileAvatarPeniclIcon.addEventListener("click", () => {
 /* ---------------------------------------------------------------------------------------------- */
 
 //! Do Not Delete
-function handleProfileAvatarSubmit(link) {
-  api.setUserAvatar(link).then((userData) => {
+function handleProfileAvatarSubmit(url) {
+  api.setUserAvatar(url).then((userData) => {
     editAvatarPopup.setLoading(true);
-    console.log(link);
-    userInfo.setProfileAvatar({ avatar: link.url });
+    console.log(url);
+    userInfo.setProfileAvatar(userData.avatar);
     editAvatarPopup.close();
   });
 }
