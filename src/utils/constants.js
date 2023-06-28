@@ -40,6 +40,7 @@ export const profileAvatarSelector = document.querySelector(".profile__icon");
 export const profileDescriptionElement = document.querySelector("#profile-description-input");
 export const profileTitleElement = document.querySelector("#profile-title-input");
 export const cardTemplateElement = "#card-template";
+export const profileAvatarPeniclIcon = document.querySelector(".profile__icon-edit-button");
 
 //! Used in index.js
 export const cardListElement = document.querySelector(".card__list");

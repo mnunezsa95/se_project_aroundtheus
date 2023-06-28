@@ -14,18 +14,19 @@ import {
   profileAvatarModalSelector,
   profileEditModalSelector,
   cardModalSelector,
+  deleteCardModalSelector,
   config,
   profileTitleSelector,
   profileDescriptionSelector,
-  deleteCardModalSelector,
+  profileAvatarSelector,
   profileEditButton,
   profileDescriptionElement,
   profileTitleElement,
   addNewCardButton,
   cardListElement,
   previewImageModal,
-  profileAvatarSelector,
   cardTemplateElement,
+  profileAvatarPeniclIcon,
 } from "../utils/constants.js";
 import API from "../components/API.js";
 import { data } from "autoprefixer";
@@ -43,6 +44,17 @@ addCardFormValidator.enableValidation();
 avatarFromValidator.enableValidation();
 
 /* ---------------------------------------------------------------------------------------------- */
+/*                                      PopupWithForm Classes                                     */
+/* ---------------------------------------------------------------------------------------------- */
+
+const editProfilePopup = new PopupWithForm(profileEditModalSelector, handleProfileFormSubmit);
+const previewImagePopup = new PopupWithImage(previewImageModal);
+const addNewCardPopup = new PopupWithForm(cardModalSelector, handleSubmitCard);
+const deleteImagePopup = new PopupWithConfirm(deleteCardModalSelector);
+const editAvatarPopup = new PopupWithForm(profileAvatarModalSelector, handleProfileAvatarSubmit);
+editAvatarPopup.setEventListeners();
+
+/* ---------------------------------------------------------------------------------------------- */
 /*                                           API Section                                          */
 /* ---------------------------------------------------------------------------------------------- */
 
@@ -54,7 +66,7 @@ const api = new API({
   },
 });
 
-//! Do Not Delete
+// //! Do Not Delete
 api.getInitialCards().then((cards) => {
   const cardListSection = new Section(
     {
@@ -92,48 +104,35 @@ function openProfilePopup() {
 //! Do Not Delete
 function handleProfileFormSubmit({ title, description }) {
   userInfo.setUserInfo(title, description);
-  editProfilePopup.setLoading(true);
+  editProfilePopup.setLoading(false, "Save");
   api.updateUserInfo(title, description).then(() => {
-    editProfilePopup.setLoading(false, "Save");
+    editProfilePopup.setLoading(true);
   });
   editProfilePopup.close();
 }
 
 profileEditButton.addEventListener("click", openProfilePopup);
 
-const changeProfileAvatar = new PopupWithForm(profileAvatarModalSelector, handleProfileImageSubmit);
-// changeProfileAvatar.open();
-
-function handleProfileImageSubmit() {
-  const profileIcon = document.querySelector(".profile__icon-edit-button");
-  profileIcon.addEventListener("click", () => {
-    changeProfileAvatar.open();
-  });
-  // changeProfileAvatar.open();
-  // changeProfileAvatar.setLoading(true);
-  // Api.setUserAvatar(data).then((data) => {
-  //   userInfo.setProfileAvatar(data.avatar);
-  //   changeProfileAvatar.close();
-  // });
-}
-
-/* ---------------------------------------------------------------------------------------------- */
-/*                                      PopupWithForm Classes                                     */
-/* ---------------------------------------------------------------------------------------------- */
-
-const editProfilePopup = new PopupWithForm(profileEditModalSelector, handleProfileFormSubmit);
-const previewImagePopup = new PopupWithImage(previewImageModal);
-const addNewCardPopup = new PopupWithForm(cardModalSelector, handleSubmitCard);
-const deleteImagePopup = new PopupWithConfirm(deleteCardModalSelector);
-deleteImagePopup.setEventListeners();
-
-function handleCardClick(data) {
-  previewImagePopup.open(data);
-}
-
 /* ---------------------------------------------------------------------------------------------- */
 /*                                         Card Functions                                         */
 /* ---------------------------------------------------------------------------------------------- */
+
+//! Do Not Delete
+function handleProfileAvatarSubmit(link) {
+  api.setUserAvatar(link).then((userData) => {
+    editAvatarPopup.setLoading(true);
+    console.log(link);
+    userInfo.setProfileAvatar({ avatar: link.url });
+    editAvatarPopup.close();
+  });
+}
+
+//!Do Not Delete
+profileAvatarPeniclIcon.addEventListener("click", () => {
+  avatarFromValidator.toggleButtonState();
+  editAvatarPopup.open();
+  editAvatarPopup.setLoading(false, "Save");
+});
 
 addNewCardButton.addEventListener("click", () => {
   addCardFormValidator.toggleButtonState();
@@ -150,18 +149,19 @@ function createCard(data) {
       previewImagePopup.open(data);
     },
     function handleCardDelete() {
+      deleteImagePopup.setLoading(false, "Yes");
       deleteImagePopup.open(data._id);
-      deleteImagePopup.setLoading(true);
       deleteImagePopup.setSubmitAction(() => {
         api.deleteCard(data._id).then(() => {
-          newCard.remove();
-          deleteImagePopup.close();
-          deleteImagePopup.setLoading(false, "Yes");
+          newCard.remove(data._id);
+          deleteImagePopup.setLoading(true);
         });
+        deleteImagePopup.close();
       });
     },
     function handleCardLikeClick(data) {
-      api.changeLikeCardStatus(data._id, isLiked);
+      api.changeLikeCardStatus(data._id, !!data.likes.length).then(() => {});
+      console.log(api.changeLikeCardStatus);
     }
   );
   return newCard.generateCard();
@@ -176,3 +176,24 @@ function handleSubmitCard({ title, url }) {
   addNewCardPopup.setLoading(true);
   addNewCardPopup.close();
 }
+
+//! Do Not Delete
+api
+  .getAppInfo()
+  .then(([initialCards, userData]) => {
+    userId = userData._id;
+    userInfo.setProfileInfo(userData.name, userData.about);
+    userInfo.setProfileAvatar(userData.avatar);
+    const cardListSection = new Section(
+      {
+        items: initialCards,
+        renderer: (data) => {
+          const newCard = createCard(data);
+          cardListSection.addItem(newCard);
+        },
+      },
+      cardListElement
+    );
+    cardListSection.renderItems();
+  })
+  .catch(() => (err) => console.log(err));

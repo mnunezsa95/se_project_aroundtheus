@@ -41,20 +41,6 @@ export default class Api {
       });
   }
 
-  /* ------------------ Get Specific Card ------------------ */
-  getSpecificCard(cardId) {
-    return fetch(`${this._baseURL}/cards/${cardId}`, {
-      headers: this._headers,
-    })
-      .then((res) => {
-        console.log(res);
-        return this._checkServerResponse(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
   /* ------------------ Patches Avatar info in Server ------------------ */
   setUserAvatar(data) {
     return fetch(`${this._baseURL}/users/me/avatar`, {
@@ -77,14 +63,10 @@ export default class Api {
   getInitialCards() {
     return fetch(`${this._baseURL}/cards`, {
       headers: this._headers,
-    })
-      .then((res) => {
-        console.log(res);
-        return this._checkServerResponse(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      console.log(res);
+      return this._checkServerResponse(res);
+    });
   }
 
   getAppInfo() {
@@ -124,6 +106,7 @@ export default class Api {
   }
 
   changeLikeCardStatus(cardId, isLiked) {
+    console.log("test");
     return fetch(`${this._baseURL}/cards/likes/${cardId}`, {
       method: isLiked ? "DELETE" : "PUT",
       headers: this._headers,
