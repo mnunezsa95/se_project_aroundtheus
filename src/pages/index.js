@@ -84,10 +84,13 @@ api.getInitialCards().then((cards) => {
 /* ---------------------------------------------------------------------------------------------- */
 /*                                         Profile Classes                                        */
 /* ---------------------------------------------------------------------------------------------- */
+let userId;
 
 //! Do Not Delete
 const userInfo = new UserInfo(profileTitleSelector, profileDescriptionSelector, profileAvatarSelector);
 api.getUserInfo().then((userData) => {
+  console.log(userData);
+  userId = userData._id;
   userInfo.setUserInfo(userData.name, userData.about);
   userInfo.setProfileAvatar(userData.avatar);
 });
@@ -144,6 +147,7 @@ addNewCardButton.addEventListener("click", () => {
 function createCard(data) {
   const newCard = new Card(
     data,
+    userId,
     cardTemplateElement,
     function handleCardClick() {
       previewImagePopup.open(data);
@@ -161,7 +165,6 @@ function createCard(data) {
     },
     function handleCardLikeClick(data) {
       api.changeLikeCardStatus(data._id, !!data.likes.length).then(() => {});
-      console.log(api.changeLikeCardStatus);
     }
   );
   return newCard.generateCard();
