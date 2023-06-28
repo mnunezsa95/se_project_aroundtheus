@@ -13,13 +13,9 @@ export default class Api {
   getUserInfo() {
     return fetch(`${this._baseURL}/users/me`, {
       headers: this._headers,
-    })
-      .then((res) => {
-        return this._checkServerResponse(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      return this._checkServerResponse(res);
+    });
   }
 
   /* ------------------ Patches UserInfo in Server ------------------ */
@@ -31,14 +27,10 @@ export default class Api {
         name: name,
         about: profession,
       }),
-    })
-      .then((res) => {
-        console.log(res);
-        return this._checkServerResponse(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      console.log(res);
+      return this._checkServerResponse(res);
+    });
   }
 
   /* ------------------ Patches Avatar info in Server ------------------ */
@@ -49,14 +41,10 @@ export default class Api {
       body: JSON.stringify({
         avatar: data.url,
       }),
-    })
-      .then((res) => {
-        console.log(res);
-        return this._checkServerResponse(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      console.log(res);
+      return this._checkServerResponse(res);
+    });
   }
 
   /* ------------------ Retrieves Initial Cards from Server ------------------ */
@@ -64,13 +52,8 @@ export default class Api {
     return fetch(`${this._baseURL}/cards`, {
       headers: this._headers,
     }).then((res) => {
-      console.log(res);
       return this._checkServerResponse(res);
     });
-  }
-
-  getAppInfo() {
-    return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
   /* ------------------ Adds NewCard and sends to Server ------------------ */
@@ -82,13 +65,9 @@ export default class Api {
         name: placeName,
         link: imgLink,
       }),
-    })
-      .then((res) => {
-        return this._checkServerResponse(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      return this._checkServerResponse(res);
+    });
   }
 
   /* ------------------ Deletes card from Server ------------------ */
@@ -96,25 +75,17 @@ export default class Api {
     return fetch(`${this._baseURL}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    })
-      .then((res) => {
-        return this._checkServerResponse(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      return this._checkServerResponse(res);
+    });
   }
 
   changeLikeCardStatus(cardId, isLiked) {
     return fetch(`${this._baseURL}/cards/likes/${cardId}`, {
       method: isLiked ? "DELETE" : "PUT",
       headers: this._headers,
-    })
-      .then((res) => {
-        return this._checkServerResponse(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    }).then((res) => {
+      return this._checkServerResponse(res);
+    });
   }
 }

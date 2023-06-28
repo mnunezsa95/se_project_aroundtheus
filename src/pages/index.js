@@ -98,16 +98,21 @@ function openProfilePopup() {
   profileDescriptionElement.value = description;
   editProfileFormValidator.toggleButtonState();
   editProfilePopup.open();
+  editProfilePopup.setLoading(false, "Save");
 }
 
 //! Do Not Delete
 function handleProfileFormSubmit({ title, description }) {
-  userInfo.setUserInfo(title, description);
-  editProfilePopup.setLoading(false, "Save");
-  api.updateUserInfo(title, description).then(() => {
-    editProfilePopup.setLoading(true);
-  });
-  editProfilePopup.close();
+  api
+    .updateUserInfo(title, description)
+    .then(() => {
+      userInfo.setUserInfo(title, description);
+      editProfilePopup.setLoading(true);
+      editProfilePopup.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 /* ---------------------------------------------------------------------------------------------- */
@@ -128,22 +133,32 @@ profileAvatarPeniclIcon.addEventListener("click", () => {
 
 //! Do Not Delete
 function handleProfileAvatarSubmit(url) {
-  api.setUserAvatar(url).then((userData) => {
-    editAvatarPopup.setLoading(true);
-    console.log(url);
-    userInfo.setProfileAvatar(userData.avatar);
-    editAvatarPopup.close();
-  });
+  api
+    .setUserAvatar(url)
+    .then((userData) => {
+      editAvatarPopup.setLoading(true);
+      console.log(url);
+      userInfo.setProfileAvatar(userData.avatar);
+      editAvatarPopup.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 //! Do not delete
 function handleSubmitCard({ title, url }) {
-  api.addCard(title, url).then((card) => {
-    const newCard = createCard(card);
-    cardListElement.prepend(newCard);
-  });
-  addNewCardPopup.setLoading(true);
-  addNewCardPopup.close();
+  api
+    .addCard(title, url)
+    .then((card) => {
+      const newCard = createCard(card);
+      cardListElement.prepend(newCard);
+      addNewCardPopup.setLoading(true);
+      addNewCardPopup.close();
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 }
 
 //! Do not delete
@@ -159,22 +174,32 @@ function createCard(data) {
       deleteImagePopup.setLoading(false, "Yes");
       deleteImagePopup.open(data._id);
       deleteImagePopup.setSubmitAction(() => {
-        api.deleteCard(data._id).then(() => {
-          newCard.remove(data._id);
-          deleteImagePopup.setLoading(true);
-        });
-        deleteImagePopup.close();
+        api
+          .deleteCard(data._id)
+          .then(() => {
+            newCard.remove(data._id);
+            deleteImagePopup.setLoading(true);
+            deleteImagePopup.close();
+          })
+          .catch((err) => {
+            console.error(`Error ${err.status}`);
+          });
       });
     },
     function handleCardLikeClick(data) {
-      api.changeLikeCardStatus(data._id, newCard.isLiked()).then((res) => {
-        console.log(res);
-        const likes = res.likes || [];
-        newCard.setLikes(likes);
-        if (this.isLiked()) {
-          this._element.querySelector(".card__like-button").classList.toggle("card__like-button_active");
-        }
-      });
+      api
+        .changeLikeCardStatus(data._id, newCard.isLiked())
+        .then((res) => {
+          console.log(res);
+          const likes = res.likes || [];
+          newCard.setLikes(likes);
+          if (this.isLiked()) {
+            this._element.querySelector(".card__like-button").classList.toggle("card__like-button_active");
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     }
   );
   return newCard.generateCard();
