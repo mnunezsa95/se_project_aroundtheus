@@ -168,10 +168,13 @@ function createCard(data) {
       });
     },
     function handleCardLikeClick(data) {
-      api.changeLikeCardStatus(data._id, newCard.isLiked()).then((data) => {
-        console.log(data);
-        newCard.renderLikes();
-        // newCard.setLikes(data);
+      api.changeLikeCardStatus(data._id, newCard.isLiked()).then((res) => {
+        console.log(res);
+        const likes = res.likes || [];
+        newCard.setLikes(likes);
+        if (this.isLiked()) {
+          this._element.querySelector(".card__like-button").classList.toggle("card__like-button_active");
+        }
       });
     }
   );

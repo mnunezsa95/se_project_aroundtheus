@@ -38,8 +38,13 @@ export default class Card {
 
   isLiked() {
     return this._likes.some((like) => {
-      like._id === this._myId;
+      return like._id === this._myId;
     });
+  }
+
+  setLikes(likes) {
+    this._likes = likes;
+    this.renderLikes();
   }
 
   renderLikes() {
@@ -48,7 +53,7 @@ export default class Card {
 
   _handleLikeClick() {
     this._element.querySelector(".card__like-counter").textContent = this._likes.length;
-    if (!this.isLiked()) {
+    if (this.isLiked()) {
       this._element.querySelector(".card__like-button").classList.toggle("card__like-button_active");
     }
   }
