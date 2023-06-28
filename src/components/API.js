@@ -47,7 +47,7 @@ export default class Api {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
-        avatar: data.avatar,
+        url: data.url,
       }),
     })
       .then((res) => {
@@ -106,7 +106,6 @@ export default class Api {
   }
 
   changeLikeCardStatus(cardId, isLiked) {
-    console.log("test");
     return fetch(`${this._baseURL}/cards/likes/${cardId}`, {
       method: isLiked ? "DELETE" : "PUT",
       headers: this._headers,

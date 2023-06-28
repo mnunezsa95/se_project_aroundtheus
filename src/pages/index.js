@@ -168,7 +168,11 @@ function createCard(data) {
       });
     },
     function handleCardLikeClick(data) {
-      api.changeLikeCardStatus(data._id, !!data.likes.length).then(() => {});
+      api.changeLikeCardStatus(data._id, newCard.isLiked()).then((data) => {
+        console.log(data);
+        newCard.renderLikes();
+        // newCard.setLikes(data);
+      });
     }
   );
   return newCard.generateCard();
