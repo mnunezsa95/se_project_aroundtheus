@@ -73,7 +73,7 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
     userId = userData._id;
     userInfo.setUserInfo(userData.name, userData.about);
     userInfo.setProfileAvatar(userData.avatar);
-    const cardListSection = new Section(
+    let cardListSection = new Section(
       {
         items: initialCards,
         renderer: (data) => {
@@ -98,20 +98,22 @@ function openProfilePopup() {
   profileDescriptionElement.value = description;
   editProfileFormValidator.toggleButtonState();
   editProfilePopup.open();
-  editProfilePopup.setLoading(false, "Save");
 }
 
 //! Do Not Delete
 function handleProfileFormSubmit({ title, description }) {
+  editProfilePopup.setLoading(true);
   api
     .updateUserInfo(title, description)
     .then(() => {
       userInfo.setUserInfo(title, description);
-      editProfilePopup.setLoading(true);
       editProfilePopup.close();
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      editProfilePopup.setLoading(false, "Save");
     });
 }
 
@@ -124,39 +126,44 @@ profileEditButton.addEventListener("click", openProfilePopup);
 profileAvatarPeniclIcon.addEventListener("click", () => {
   avatarFromValidator.toggleButtonState();
   editAvatarPopup.open();
-  editAvatarPopup.setLoading(false, "Save");
 });
-
-/* ---------------------------------------------------------------------------------------------- */
-/*                                         Card Functions                                         */
-/* ---------------------------------------------------------------------------------------------- */
 
 //! Do Not Delete
 function handleProfileAvatarSubmit(url) {
+  editAvatarPopup.setLoading(true);
   api
     .setUserAvatar(url)
     .then((userData) => {
-      editAvatarPopup.setLoading(true);
       userInfo.setProfileAvatar(userData.avatar);
       editAvatarPopup.close();
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      editAvatarPopup.setLoading(false, "Save");
     });
 }
 
+/* ---------------------------------------------------------------------------------------------- */
+/*                                         Card Functions                                         */
+/* ---------------------------------------------------------------------------------------------- */
+
 //! Do not delete
 function handleSubmitCard({ title, url }) {
+  addNewCardPopup.setLoading(true);
   api
     .addCard(title, url)
     .then((card) => {
       const newCard = createCard(card);
       cardListElement.prepend(newCard);
-      addNewCardPopup.setLoading(true);
       addNewCardPopup.close();
     })
     .catch((err) => {
       console.error(err);
+    })
+    .finally(() => {
+      addNewCardPopup.setLoading(false, "Create");
     });
 }
 
@@ -170,17 +177,19 @@ function createCard(data) {
       previewImagePopup.open(data);
     },
     function handleCardDelete() {
-      deleteImagePopup.setLoading(false, "Yes");
       deleteImagePopup.setSubmitAction(() => {
+        deleteImagePopup.setLoading(true);
         api
           .deleteCard(data._id)
           .then((res) => {
             newCard.remove(res._id);
-            deleteImagePopup.setLoading(true);
             deleteImagePopup.close();
           })
           .catch((err) => {
             console.error(err);
+          })
+          .finally(() => {
+            deleteImagePopup.setLoading(false, "Yes");
           });
       });
       deleteImagePopup.open(data._id);
@@ -189,12 +198,9 @@ function createCard(data) {
       api
         .changeLikeCardStatus(data._id, newCard.isLiked())
         .then((res) => {
-          console.log(res);
           const likes = res.likes || [];
           newCard.setLikes(likes);
-          if (this.isLiked()) {
-            this._element.querySelector(".card__like-button").classList.toggle("card__like-button_active");
-          }
+          newCard.toggleLikes();
         })
         .catch((err) => {
           console.error(err);
@@ -210,5 +216,4 @@ function createCard(data) {
 addNewCardButton.addEventListener("click", () => {
   addCardFormValidator.toggleButtonState();
   addNewCardPopup.open();
-  addNewCardPopup.setLoading(false, "Create");
 });

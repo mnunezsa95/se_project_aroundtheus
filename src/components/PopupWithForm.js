@@ -18,12 +18,12 @@ export default class PopupWithFrom extends Popup {
   close() {
     super.close();
     this._popupForm.reset();
-    this._popupElement.removeEventListener("submit", this._handleFormSubmit);
+    this._popupElement.removeEventListener("submit", this._submitForm);
   }
 
   _getInputValues() {
     const inputsObject = {}; // object for storing data
-    this._inputList = document.querySelectorAll(".modal__input");
+    this._inputList = this._popupForm.querySelectorAll(".modal__input");
     this._inputList.forEach((input) => {
       if (input.value !== "") {
         inputsObject[input.name] = input.value;

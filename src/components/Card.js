@@ -51,6 +51,12 @@ export default class Card {
     this._element.querySelector(".card__like-counter").textContent = this._likes.length;
   }
 
+  toggleLikes() {
+    if (this.isLiked()) {
+      this._element.querySelector(".card__like-button").classList.add("card__like-button_active");
+    }
+  }
+
   _handleLikeClick() {
     this._element.querySelector(".card__like-counter").textContent = this._likes.length;
     if (this.isLiked()) {
