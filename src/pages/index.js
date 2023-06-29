@@ -176,13 +176,13 @@ function createCard(data) {
       deleteImagePopup.setSubmitAction(() => {
         api
           .deleteCard(data._id)
-          .then(() => {
-            newCard.remove(data._id);
+          .then((res) => {
+            newCard.remove(res._id);
             deleteImagePopup.setLoading(true);
             deleteImagePopup.close();
           })
           .catch((err) => {
-            console.error(`Error ${err.status}`);
+            console.error(err);
           });
       });
     },
