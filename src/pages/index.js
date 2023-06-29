@@ -37,7 +37,7 @@ import { data } from "autoprefixer";
 const editProfileFormValidator = new FormValidator(config, profileEditModalSelector);
 const addCardFormValidator = new FormValidator(config, cardModalSelector);
 const avatarFromValidator = new FormValidator(config, profileAvatarModalSelector);
-//
+const deleteCardFormValidator = new FormValidator(config, deleteCardModalSelector);
 const userInfo = new UserInfo(profileTitleSelector, profileDescriptionSelector, profileAvatarSelector);
 const editProfilePopup = new PopupWithForm(profileEditModalSelector, handleProfileFormSubmit);
 const previewImagePopup = new PopupWithImage(previewImageModal);
@@ -60,7 +60,7 @@ const api = new API({
 editProfileFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
 avatarFromValidator.enableValidation();
-
+deleteCardFormValidator.enableValidation();
 /* ---------------------------------------------------------------------------------------------- */
 /*                                           API Promise                                          */
 /* ---------------------------------------------------------------------------------------------- */
@@ -170,8 +170,9 @@ function createCard(data) {
       previewImagePopup.open(data);
     },
     function handleCardDelete() {
-      deleteImagePopup.setLoading(false, "Yes");
       deleteImagePopup.open(data._id);
+      debugger;
+      deleteImagePopup.setLoading(false, "Yes");
       deleteImagePopup.setSubmitAction(() => {
         api
           .deleteCard(data._id)
