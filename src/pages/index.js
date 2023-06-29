@@ -170,8 +170,6 @@ function createCard(data) {
       previewImagePopup.open(data);
     },
     function handleCardDelete() {
-      deleteImagePopup.open(data._id);
-      debugger;
       deleteImagePopup.setLoading(false, "Yes");
       deleteImagePopup.setSubmitAction(() => {
         api
@@ -185,6 +183,7 @@ function createCard(data) {
             console.error(err);
           });
       });
+      deleteImagePopup.open(data._id);
     },
     function handleCardLikeClick(data) {
       api
