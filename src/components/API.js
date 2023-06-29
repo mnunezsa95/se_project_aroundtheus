@@ -28,7 +28,6 @@ export default class Api {
         about: profession,
       }),
     }).then((res) => {
-      console.log(res);
       return this._checkServerResponse(res);
     });
   }
@@ -42,7 +41,6 @@ export default class Api {
         avatar: data.url,
       }),
     }).then((res) => {
-      console.log(res);
       return this._checkServerResponse(res);
     });
   }

@@ -137,7 +137,6 @@ function handleProfileAvatarSubmit(url) {
     .setUserAvatar(url)
     .then((userData) => {
       editAvatarPopup.setLoading(true);
-      console.log(url);
       userInfo.setProfileAvatar(userData.avatar);
       editAvatarPopup.close();
     })

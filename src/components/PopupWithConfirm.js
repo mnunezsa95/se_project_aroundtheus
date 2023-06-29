@@ -4,6 +4,7 @@ export default class PopupWithConfirm extends Popup {
   constructor(popupSelector, handleFormSubmit) {
     super({ popupSelector }); // creates the popup element
     this._handleFormSubmit = handleFormSubmit;
+    this._popupForm = document.querySelector(".modal__form");
   }
 
   setSubmitAction(action) {
@@ -20,13 +21,11 @@ export default class PopupWithConfirm extends Popup {
 
   close() {
     super.close();
-    this._popupElement.removeEventListener("submit", this._handleFormSubmit);
+    this._popupForm.removeEventListener("submit", _handleFormSubmit);
   }
 
   setEventListeners() {
     super.setEventListeners();
-    this._popupElement.addEventListener("click", () => {
-      this._handleFormSubmit();
-    });
+    this._popupForm.addEventListener("submit", _handleFormSubmit);
   }
 }
