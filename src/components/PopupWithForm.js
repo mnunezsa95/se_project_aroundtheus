@@ -7,15 +7,23 @@ export default class PopupWithFrom extends Popup {
     this._popupForm = this._popupElement.querySelector(".modal__form"); // selects modal form for specific instance of this obj
   }
 
+  setLoading(isLoading, submitSave) {
+    if (isLoading) {
+      this._popupElement.querySelector(".modal__save-button").textContent = "Saving...";
+    } else {
+      this._popupElement.querySelector(".modal__save-button").textContent = submitSave;
+    }
+  }
+
   close() {
-    this._popupForm.reset();
     super.close();
-    this._popupElement.removeEventListener("submit", this._handleFormSubmit);
+    this._popupForm.reset();
+    this._popupElement.removeEventListener("submit", this._submitForm);
   }
 
   _getInputValues() {
     const inputsObject = {}; // object for storing data
-    this._inputList = document.querySelectorAll(".modal__input");
+    this._inputList = this._popupForm.querySelectorAll(".modal__input");
     this._inputList.forEach((input) => {
       if (input.value !== "") {
         inputsObject[input.name] = input.value;

@@ -29,16 +29,21 @@ export const initialCards = [
 //! Used in index.js
 export const profileEditModalSelector = document.querySelector("#edit-modal");
 export const cardModalSelector = document.querySelector("#add-modal");
+export const profileAvatarModalSelector = document.querySelector("#update-profile-modal");
+export const deleteCardModalSelector = document.querySelector("#delete-card-modal");
 export const profileEditButton = document.querySelector(".profile__edit-button");
 export const inputSelector = ".modal__input";
 export const addNewCardButton = document.querySelector(".profile__add-button");
 export const profileTitleSelector = document.querySelector(".profile__title");
 export const profileDescriptionSelector = document.querySelector(".profile__description");
+export const profileAvatarSelector = document.querySelector(".profile__icon");
 export const profileDescriptionElement = document.querySelector("#profile-description-input");
 export const profileTitleElement = document.querySelector("#profile-title-input");
+export const cardTemplateElement = "#card-template";
+export const profileAvatarPeniclIcon = document.querySelector(".profile__icon-edit-button");
 
 //! Used in index.js
-export const cardList = document.querySelector(".card__list");
+export const cardListElement = document.querySelector(".card__list");
 
 //! Used in Card.js
 export const previewImageModal = document.querySelector("#preview-modal");
