@@ -66,6 +66,7 @@ deleteCardFormValidator.enableValidation();
 /* ---------------------------------------------------------------------------------------------- */
 
 let userId;
+let cardListSection;
 
 //! Do Not Delete
 Promise.all([api.getInitialCards(), api.getUserInfo()])
@@ -73,7 +74,7 @@ Promise.all([api.getInitialCards(), api.getUserInfo()])
     userId = userData._id;
     userInfo.setUserInfo(userData.name, userData.about);
     userInfo.setProfileAvatar(userData.avatar);
-    let cardListSection = new Section(
+    cardListSection = new Section(
       {
         items: initialCards,
         renderer: (data) => {
@@ -156,7 +157,7 @@ function handleSubmitCard({ title, url }) {
     .addCard(title, url)
     .then((card) => {
       const newCard = createCard(card);
-      cardListElement.prepend(newCard);
+      cardListSection.prependItem(newCard);
       addNewCardPopup.close();
     })
     .catch((err) => {
